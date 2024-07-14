@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class Registro extends JPanel {
 
@@ -23,42 +27,46 @@ public class Registro extends JPanel {
 
     private void inicializarComponentes() {
         setLayout(null); // Establecer AbsoluteLayout
+        setBackground(new Color(0x202A40)); // Fondo más claro
 
         // Etiquetas y campos de texto
-        JLabel lblNombre = new JLabel("Nombre:");
-        lblNombre.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        lblNombre.setBounds(50, 50, 100, 30);
+        JLabel lblNombre = new JLabel("Usuario:");
+        lblNombre.setForeground(new Color(255, 255, 255));
+        lblNombre.setFont(new Font("Yu Gothic", Font.PLAIN, 16));
+        lblNombre.setBounds(152, 256, 100, 30);
         add(lblNombre);
 
         textFieldNombre = new JTextField();
         textFieldNombre.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        textFieldNombre.setBounds(160, 50, 200, 30);
+        textFieldNombre.setBounds(275, 256, 346, 30);
         add(textFieldNombre);
 
         JLabel lblCorreo = new JLabel("Correo:");
-        lblCorreo.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        lblCorreo.setBounds(50, 100, 100, 30);
+        lblCorreo.setForeground(new Color(255, 255, 255));
+        lblCorreo.setFont(new Font("Yu Gothic", Font.PLAIN, 16));
+        lblCorreo.setBounds(152, 318, 100, 30);
         add(lblCorreo);
 
         textFieldCorreo = new JTextField();
         textFieldCorreo.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        textFieldCorreo.setBounds(160, 100, 200, 30);
+        textFieldCorreo.setBounds(275, 318, 346, 30);
         add(textFieldCorreo);
 
         JLabel lblContraseña = new JLabel("Contraseña:");
-        lblContraseña.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        lblContraseña.setBounds(50, 150, 100, 30);
+        lblContraseña.setForeground(new Color(255, 255, 255));
+        lblContraseña.setFont(new Font("Yu Gothic", Font.PLAIN, 16));
+        lblContraseña.setBounds(152, 380, 100, 30);
         add(lblContraseña);
 
         passwordField = new JPasswordField();
         passwordField.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        passwordField.setBounds(160, 150, 200, 30);
+        passwordField.setBounds(275, 380, 346, 30);
         add(passwordField);
 
         // Botón Registrarse
         JButton btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnRegistrarse.setBounds(160, 200, 120, 30);
+        btnRegistrarse.setBounds(328, 437, 119, 30);
         btnRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,14 +78,36 @@ public class Registro extends JPanel {
         // Botón Iniciar Sesión
         JButton btnIniciarSesion = new JButton("Iniciar Sesión");
         btnIniciarSesion.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnIniciarSesion.setBounds(300, 200, 120, 30);
+        btnIniciarSesion.setBounds(307, 499, 154, 30);
         btnIniciarSesion.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                abrirPaginaInicioSesion();
+                // Cambiar al panel de inicio de sesión
+                cardLayout.show(panelPrincipal, "IniciarSesion");
             }
         });
         add(btnIniciarSesion);
+
+        JLabel lblRegistro = new JLabel("REGISTRO");
+        lblRegistro.setForeground(new Color(255, 255, 255));
+        lblRegistro.setFont(new Font("Yu Gothic", Font.PLAIN, 18));
+        lblRegistro.setBounds(323, 216, 100, 30);
+        add(lblRegistro);
+
+        JLabel lblyaTienesUna = new JLabel("¿Ya tienes una cuenta?");
+        lblyaTienesUna.setForeground(new Color(255, 255, 255));
+        lblyaTienesUna.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+        lblyaTienesUna.setBounds(307, 478, 171, 30);
+        add(lblyaTienesUna);
+
+        // Imagen centrada sin redimensionar
+        try {
+            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
+            JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
+            lblImagen.setBounds(254, 37, 283, 183); // Ajusta las coordenadas y tamaño según sea necesario
+            add(lblImagen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void registrarUsuario() {
@@ -99,10 +129,6 @@ public class Registro extends JPanel {
         JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
 
         // Cambiar al panel de inicio de sesión
-        cardLayout.show(panelPrincipal, "Login");
-    }
-
-    private void abrirPaginaInicioSesion() {
-        cardLayout.show(panelPrincipal, "Login"); // Cambiar al panel de inicio de sesión
+        cardLayout.show(panelPrincipal, "IniciarSesion");
     }
 }
