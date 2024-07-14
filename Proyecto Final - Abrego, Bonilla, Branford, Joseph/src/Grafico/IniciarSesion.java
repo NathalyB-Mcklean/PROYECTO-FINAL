@@ -73,7 +73,7 @@ public class IniciarSesion extends JPanel {
                 boolean loginExitoso = validarCredenciales(usuario, contraseña);
 
                 if (loginExitoso) {
-                    // Cambiar al panel de la aplicación principal o a la página de bienvenida
+                    // Cambiar al panel principal o a la página de bienvenida
                     cardLayout.show(panelPrincipal, "Bienvenida");
                 } else {
                     JOptionPane.showMessageDialog(IniciarSesion.this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
@@ -83,6 +83,7 @@ public class IniciarSesion extends JPanel {
         btnIngresar.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         btnIngresar.setBounds(402, 428, 125, 30);
         add(btnIngresar);
+
 
         // Imagen centrada sin redimensionar
         try {

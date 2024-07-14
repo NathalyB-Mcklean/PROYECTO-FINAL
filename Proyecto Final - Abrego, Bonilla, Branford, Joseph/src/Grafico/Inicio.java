@@ -29,7 +29,7 @@ public class Inicio extends JPanel {
         // Botón Cerrar Sesión
         btnCerrarSesion = new JButton("Cerrar Sesión");
         btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
-        btnCerrarSesion.setForeground(Color.WHITE);
+        btnCerrarSesion.setForeground(new Color(0, 0, 0));
         btnCerrarSesion.setBackground(new Color(0xFF6347)); // Color naranja
         btnCerrarSesion.addActionListener(new ActionListener() {
             @Override
@@ -43,7 +43,7 @@ public class Inicio extends JPanel {
         // Botón Leídos
         btnLeidos = new JButton("Leídos");
         btnLeidos.setFont(new Font("Arial", Font.PLAIN, 14));
-        btnLeidos.setForeground(Color.WHITE);
+        btnLeidos.setForeground(new Color(0, 0, 0));
         btnLeidos.setBackground(new Color(0x32CD32)); // Color verde
         // Agregar lógica para manejar los libros leídos
         panelSuperior.add(btnLeidos);
@@ -158,7 +158,7 @@ public class Inicio extends JPanel {
         cardLayout.addLayoutComponent(new Inicio(cardLayout, panelPrincipal), "Inicio");
         cardLayout.show(panelPrincipal, "Inicio");
 
-        frame.add(panelPrincipal);
+        frame.getContentPane().add(panelPrincipal);
         frame.setVisible(true);
     }
 }

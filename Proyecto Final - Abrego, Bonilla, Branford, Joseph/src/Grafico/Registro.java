@@ -81,11 +81,11 @@ public class Registro extends JPanel {
         btnIniciarSesion.setBounds(307, 499, 154, 30);
         btnIniciarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Cambiar al panel de inicio de sesión
                 cardLayout.show(panelPrincipal, "IniciarSesion");
             }
         });
         add(btnIniciarSesion);
+
 
         JLabel lblRegistro = new JLabel("REGISTRO");
         lblRegistro.setForeground(new Color(255, 255, 255));
