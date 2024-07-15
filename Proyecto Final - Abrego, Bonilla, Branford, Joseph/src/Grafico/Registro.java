@@ -9,7 +9,8 @@ import Logica.Usuario;
 
 public class Registro extends JPanel {
 
-    private JTextField textFieldNombre;
+   //cambiar a public
+	private JTextField textFieldNombre;
     private JTextField textFieldCorreo;
     private JPasswordField passwordField;
 
