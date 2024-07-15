@@ -74,6 +74,7 @@ public class IniciarSesion extends JPanel {
             lblImagen.setBounds(315, 11, 283, 183);
             add(lblImagen);
             
+          //acomodar 
             JButton btnRegistarse = new JButton("Registrarse");
             btnRegistarse.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
             btnRegistarse.setBounds(485, 488, 125, 30);
