@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
+import Logica.Usuario;
 
 public class Registro extends JPanel {
 
@@ -66,7 +64,7 @@ public class Registro extends JPanel {
         // Botón Registrarse
         JButton btnRegistrarse = new JButton("Registrarse");
         btnRegistrarse.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnRegistrarse.setBounds(328, 437, 119, 30);
+        btnRegistrarse.setBounds(386, 435, 119, 30);
         btnRegistrarse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +76,7 @@ public class Registro extends JPanel {
         // Botón Iniciar Sesión
         JButton btnIniciarSesion = new JButton("Iniciar Sesión");
         btnIniciarSesion.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnIniciarSesion.setBounds(307, 499, 154, 30);
+        btnIniciarSesion.setBounds(375, 501, 154, 30);
         btnIniciarSesion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(panelPrincipal, "IniciarSesion");
@@ -86,28 +84,17 @@ public class Registro extends JPanel {
         });
         add(btnIniciarSesion);
 
-
         JLabel lblRegistro = new JLabel("REGISTRO");
         lblRegistro.setForeground(new Color(255, 255, 255));
         lblRegistro.setFont(new Font("Yu Gothic", Font.PLAIN, 18));
-        lblRegistro.setBounds(323, 216, 100, 30);
+        lblRegistro.setBounds(394, 203, 100, 30);
         add(lblRegistro);
 
         JLabel lblyaTienesUna = new JLabel("¿Ya tienes una cuenta?");
         lblyaTienesUna.setForeground(new Color(255, 255, 255));
         lblyaTienesUna.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        lblyaTienesUna.setBounds(307, 478, 171, 30);
+        lblyaTienesUna.setBounds(375, 476, 171, 30);
         add(lblyaTienesUna);
-
-        // Imagen centrada sin redimensionar
-        try {
-            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
-            JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
-            lblImagen.setBounds(254, 37, 283, 183); // Ajusta las coordenadas y tamaño según sea necesario
-            add(lblImagen);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void registrarUsuario() {
@@ -125,10 +112,12 @@ public class Registro extends JPanel {
             return;
         }
 
-        // Simulando registro exitoso
-        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
-
-        // Cambiar al panel de inicio de sesión
-        cardLayout.show(panelPrincipal, "IniciarSesion");
+        Usuario nuevoUsuario = new Usuario(nombre, correo, contraseña);
+        if (Usuario.agregarUsuario(nuevoUsuario)) {
+            JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            cardLayout.show(panelPrincipal, "IniciarSesion");
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe o no hay espacio disponible", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

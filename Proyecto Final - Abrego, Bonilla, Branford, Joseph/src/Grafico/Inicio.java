@@ -67,6 +67,10 @@ public class Inicio extends JPanel {
             }
         });
         panelBusqueda.add(btnBuscar, BorderLayout.EAST);
+        
+                panelRecomendaciones = new JPanel();
+                panelSuperior.add(panelRecomendaciones);
+                panelRecomendaciones.setLayout(new BoxLayout(panelRecomendaciones, BoxLayout.Y_AXIS));
 
         // Combo Box Categorías y botón Filtrar
         JPanel panelFiltrar = new JPanel();
@@ -91,10 +95,7 @@ public class Inicio extends JPanel {
         // Panel central con recomendaciones
         JPanel panelCentral = new JPanel(new BorderLayout());
         add(panelCentral, BorderLayout.CENTER);
-
-        panelRecomendaciones = new JPanel();
-        panelRecomendaciones.setLayout(new BoxLayout(panelRecomendaciones, BoxLayout.Y_AXIS));
-        JScrollPane scrollRecomendaciones = new JScrollPane(panelRecomendaciones);
+        JScrollPane scrollRecomendaciones = new JScrollPane();
         panelCentral.add(scrollRecomendaciones, BorderLayout.CENTER);
 
         // Cargar recomendaciones iniciales desde GestorLibros
@@ -159,3 +160,4 @@ public class Inicio extends JPanel {
         frame.setVisible(true);
     }
 }
+
