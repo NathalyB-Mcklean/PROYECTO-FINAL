@@ -1,46 +1,32 @@
 package Logica;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Libro {
-    private int id;
+    // Atributos de la clase Libro
+    private static Libro[] libros = {
+        new Libro("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía."),
+        new Libro("El principito", "Una novela corta y la obra más famosa de Antoine de Saint-Exupéry."),
+        new Libro("Don Quijote de la Mancha", "La obra cumbre de la literatura española escrita por Miguel de Cervantes."),
+        new Libro("Harry Potter y la piedra filosofal", "El primer libro de la serie de Harry Potter escrita por J.K. Rowling."),
+        new Libro("1984", "Una novela distópica de George Orwell que describe un futuro totalitario.")
+        // Puedes seguir añadiendo más libros aquí
+    };
+
+    // Atributos de cada libro
     private String titulo;
-    private String tipo;
-    private String editorial;
-    private String isbn;
-    private List<Categoria> categorias;
-    private List<Autor> autores;
+    private String descripcion;
 
-    // Constructor
-    public Libro(int id, String titulo, String tipo, String editorial, String isbn) {
-        this.id = id;
+    // Constructor de la clase Libro
+    public Libro(String titulo, String descripcion) {
         this.titulo = titulo;
-        this.tipo = tipo;
-        this.editorial = editorial;
-        this.isbn = isbn;
-        this.categorias = new ArrayList<>();
-        this.autores = new ArrayList<>();
+        this.descripcion = descripcion;
     }
 
-    // Métodos
-    public void agregarCategoria(Categoria categoria) {
-        this.categorias.add(categoria);
+    // Método estático para obtener la lista de libros
+    public static Libro[] obtenerLibros() {
+        return libros;
     }
 
-    public void asignarAutor(Autor autor) {
-        this.autores.add(autor);
-    }
-
-    // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Métodos getter y setter
     public String getTitulo() {
         return titulo;
     }
@@ -49,47 +35,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getEditorial() {
-        return editorial;
-    }
-
-    public void setEditorial(String editorial) {
-        this.editorial = editorial;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public List<Categoria> getCategorias() {
-        return categorias;
-    }
-
-    public void setCategorias(List<Categoria> categorias) {
-        this.categorias = categorias;
-    }
-
-    public List<Autor> getAutores() {
-        return autores;
-    }
-
-    public void setAutores(List<Autor> autores) {
-        this.autores = autores;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 }
-
-
-
-

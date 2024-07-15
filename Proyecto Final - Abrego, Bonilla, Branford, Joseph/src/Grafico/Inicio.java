@@ -1,5 +1,7 @@
 package Grafico;
 
+import Logica.Libro;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -95,8 +97,36 @@ public class Inicio extends JPanel {
         JScrollPane scrollRecomendaciones = new JScrollPane(panelRecomendaciones);
         panelCentral.add(scrollRecomendaciones, BorderLayout.CENTER);
 
-        // Simulación de recomendaciones iniciales
-        cargarRecomendacionesIniciales();
+        // Cargar recomendaciones iniciales desde GestorLibros
+        cargarRecomendaciones(Libro.obtenerLibros());
+    }
+
+    // Método para cargar recomendaciones de libros
+    private void cargarRecomendaciones(Libro[] libros) {
+        for (Libro libro : libros) {
+            JPanel panelLibro = new JPanel(new BorderLayout());
+            panelLibro.setBorder(new EmptyBorder(10, 10, 10, 10));
+            JLabel lblTitulo = new JLabel(libro.getTitulo());
+            panelLibro.add(lblTitulo, BorderLayout.NORTH);
+            JTextArea areaTexto = new JTextArea(libro.getDescripcion());
+            areaTexto.setWrapStyleWord(true);
+            areaTexto.setLineWrap(true);
+            areaTexto.setEditable(false);
+            JScrollPane scrollPane = new JScrollPane(areaTexto);
+            panelLibro.add(scrollPane, BorderLayout.CENTER);
+            JButton btnDetalles = new JButton("Ver detalles");
+
+            btnDetalles.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JOptionPane.showMessageDialog(panelLibro, "Simulación de detalles del libro: " + libro.getTitulo(), "Detalles", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+            panelLibro.add(btnDetalles, BorderLayout.SOUTH);
+            panelRecomendaciones.add(panelLibro);
+        }
+        panelRecomendaciones.revalidate();
+        panelRecomendaciones.repaint();
     }
 
     // Método para simular la búsqueda de libros
@@ -109,39 +139,6 @@ public class Inicio extends JPanel {
     private void filtrarLibros(String categoria) {
         // Simulación de filtrado de libros por categoría
         JOptionPane.showMessageDialog(this, "Simulación de filtrado por categoría: " + categoria, "Filtrar", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    // Método para simular la carga inicial de recomendaciones
-    private void cargarRecomendacionesIniciales() {
-        // Simulación de recomendaciones iniciales
-        for (int i = 1; i <= 10; i++) {
-            JPanel panelLibro = new JPanel(new BorderLayout());
-            panelLibro.setBorder(new EmptyBorder(10, 10, 10, 10));
-            JLabel lblTitulo = new JLabel("Libro " + i);
-            panelLibro.add(lblTitulo, BorderLayout.NORTH);
-            JTextArea areaTexto = new JTextArea("Descripción del libro " + i);
-            areaTexto.setWrapStyleWord(true);
-            areaTexto.setLineWrap(true);
-            areaTexto.setEditable(false);
-            JScrollPane scrollPane = new JScrollPane(areaTexto);
-            panelLibro.add(scrollPane, BorderLayout.CENTER);
-            JButton btnDetalles = new JButton("Ver detalles");
-
-            // Variable final para acceder a i dentro del ActionListener
-            final int libroIndex = i;
-
-            btnDetalles.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    // Lógica para mostrar detalles del libro (simulado)
-                    JOptionPane.showMessageDialog(panelLibro, "Simulación de detalles del libro " + libroIndex, "Detalles", JOptionPane.INFORMATION_MESSAGE);
-                }
-            });
-            panelLibro.add(btnDetalles, BorderLayout.SOUTH);
-            panelRecomendaciones.add(panelLibro);
-        }
-        panelRecomendaciones.revalidate();
-        panelRecomendaciones.repaint();
     }
 
     public static void main(String[] args) {
