@@ -1,5 +1,7 @@
 package Grafico;
 
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,6 +29,9 @@ public class Main extends JFrame {
 
         IniciarSesion iniciarSesionPanel = new IniciarSesion(cardLayout, panelPrincipal);
         panelPrincipal.add(iniciarSesionPanel, "IniciarSesion");
+
+        Inicio inicioPanel = new Inicio(cardLayout, panelPrincipal);
+        panelPrincipal.add(inicioPanel, "inicio");
 
         cardLayout.show(panelPrincipal, "presentacion");
 
