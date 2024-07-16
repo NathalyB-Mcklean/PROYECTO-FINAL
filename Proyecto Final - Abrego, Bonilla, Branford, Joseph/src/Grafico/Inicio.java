@@ -16,49 +16,54 @@ public class Inicio extends JPanel {
     private JComboBox<String> comboBoxCategorias;
     private JButton btnFiltrar;
     private JPanel panelRecomendaciones;
+    private CardLayout cardLayout;
+    private JPanel panelPrincipal;
 
     public Inicio(CardLayout cardLayout, JPanel panelPrincipal) {
-        setBackground(new Color(240, 240, 240)); // Color de fondo
+        this.cardLayout = cardLayout;
+        this.panelPrincipal = panelPrincipal;
 
-        // Diseño de la página con BorderLayout
-        setLayout(new BorderLayout());
-
-        // Panel superior con botones y barra de búsqueda
-        JPanel panelSuperior = new JPanel();
-        panelSuperior.setBackground(new Color(40, 54, 82)); // Color #283652
-        add(panelSuperior, BorderLayout.NORTH);
+        setBackground(new Color(40, 54, 82)); // Color #283652
+        setLayout(null); // Usar absolute layout
 
         // Botón Cerrar Sesión
         btnCerrarSesion = new JButton("Cerrar Sesión");
         btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
         btnCerrarSesion.setForeground(new Color(0, 0, 0));
         btnCerrarSesion.setBackground(new Color(0xFF6347)); // Color naranja
+        btnCerrarSesion.setBounds(20, 20, 120, 30);
         btnCerrarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Lógica para cerrar sesión
-                cardLayout.show(panelPrincipal, "IniciarSesion");
+                cardLayout.show(panelPrincipal, "Registro");
             }
         });
-        panelSuperior.add(btnCerrarSesion);
+        add(btnCerrarSesion);
 
         // Botón Leídos
         btnLeidos = new JButton("Leídos");
         btnLeidos.setFont(new Font("Arial", Font.PLAIN, 14));
         btnLeidos.setForeground(new Color(0, 0, 0));
         btnLeidos.setBackground(new Color(0x32CD32)); // Color verde
-        // Agregar lógica para manejar los libros leídos
-        panelSuperior.add(btnLeidos);
+        btnLeidos.setBounds(160, 20, 120, 30);
+        btnLeidos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Lógica para mostrar libros leídos
+                mostrarLibrosLeidos();
+            }
+        });
+        add(btnLeidos);
 
         // Barra de búsqueda y botón Buscar
-        JPanel panelBusqueda = new JPanel(new BorderLayout());
-        panelSuperior.add(panelBusqueda);
-
         textFieldBusqueda = new JTextField();
         textFieldBusqueda.setPreferredSize(new Dimension(400, 30));
-        panelBusqueda.add(textFieldBusqueda, BorderLayout.WEST);
+        textFieldBusqueda.setBounds(300, 20, 400, 30);
+        add(textFieldBusqueda);
 
         btnBuscar = new JButton("Buscar");
+        btnBuscar.setBounds(710, 20, 80, 30);
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -66,22 +71,15 @@ public class Inicio extends JPanel {
                 buscarLibros(textFieldBusqueda.getText());
             }
         });
-        panelBusqueda.add(btnBuscar, BorderLayout.EAST);
-        
-                panelRecomendaciones = new JPanel();
-                panelSuperior.add(panelRecomendaciones);
-                panelRecomendaciones.setLayout(new BoxLayout(panelRecomendaciones, BoxLayout.Y_AXIS));
+        add(btnBuscar);
 
         // Combo Box Categorías y botón Filtrar
-        JPanel panelFiltrar = new JPanel();
-        panelFiltrar.setLayout(new BoxLayout(panelFiltrar, BoxLayout.X_AXIS));
-        panelSuperior.add(panelFiltrar);
-
-        String[] categorias = {"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"};
-        comboBoxCategorias = new JComboBox<>(categorias);
-        panelFiltrar.add(comboBoxCategorias);
+        comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
+        comboBoxCategorias.setBounds(20, 70, 150, 30);
+        add(comboBoxCategorias);
 
         btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setBounds(180, 70, 80, 30);
         btnFiltrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,20 +88,22 @@ public class Inicio extends JPanel {
                 filtrarLibros(categoriaSeleccionada);
             }
         });
-        panelFiltrar.add(btnFiltrar);
+        add(btnFiltrar);
 
         // Panel central con recomendaciones
-        JPanel panelCentral = new JPanel(new BorderLayout());
-        add(panelCentral, BorderLayout.CENTER);
-        JScrollPane scrollRecomendaciones = new JScrollPane();
-        panelCentral.add(scrollRecomendaciones, BorderLayout.CENTER);
+        panelRecomendaciones = new JPanel();
+        panelRecomendaciones.setLayout(new BoxLayout(panelRecomendaciones, BoxLayout.Y_AXIS));
+        JScrollPane scrollRecomendaciones = new JScrollPane(panelRecomendaciones);
+        scrollRecomendaciones.setBounds(20, 120, 760, 420);
+        add(scrollRecomendaciones);
 
-        // Cargar recomendaciones iniciales desde GestorLibros
+        // Cargar recomendaciones iniciales desde Libro.obtenerLibros()
         cargarRecomendaciones(Libro.obtenerLibros());
     }
 
     // Método para cargar recomendaciones de libros
     private void cargarRecomendaciones(Libro[] libros) {
+        panelRecomendaciones.removeAll();
         for (Libro libro : libros) {
             JPanel panelLibro = new JPanel(new BorderLayout());
             panelLibro.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -130,34 +130,51 @@ public class Inicio extends JPanel {
         panelRecomendaciones.repaint();
     }
 
-    // Método para simular la búsqueda de libros
+    // Método para mostrar libros marcados como leídos
+    private void mostrarLibrosLeidos() {
+        // Lógica para obtener libros marcados como leídos
+        // Supongamos que tenemos una forma de marcar libros como leídos en la clase Libro
+        // Por ahora, utilizaremos una simulación
+        Libro[] librosLeidos = filtrarLibrosPorEstado(true); // Obtener libros marcados como leídos
+        cargarRecomendaciones(librosLeidos);
+    }
+
+    // Método para filtrar libros por categoría
+    private void filtrarLibros(String categoriaSeleccionada) {
+        Libro[] librosFiltrados;
+        if (categoriaSeleccionada.equals("Todos")) {
+            librosFiltrados = Libro.obtenerLibros();
+        } else {
+            // Lógica para filtrar libros por categoría
+            librosFiltrados = filtrarPorCategoria(Libro.obtenerLibros(), categoriaSeleccionada);
+        }
+        cargarRecomendaciones(librosFiltrados);
+    }
+
+    // Método para filtrar libros por categoría específica
+    private Libro[] filtrarPorCategoria(Libro[] libros, String categoria) {
+        // Implementa la lógica para filtrar libros por la categoría especificada
+        // Este es un ejemplo simulado
+        // Supongamos que cada libro tiene una categoría asignada
+        // Aquí implementarías la lógica real según tus necesidades
+        return libros;
+    }
+
+    // Método para buscar libros por texto ingresado
     private void buscarLibros(String textoBusqueda) {
-        // Simulación de búsqueda de libros
-        JOptionPane.showMessageDialog(this, "Simulación de búsqueda: " + textoBusqueda, "Búsqueda", JOptionPane.INFORMATION_MESSAGE);
+        // Lógica para buscar libros según el texto ingresado
+        // Este es un ejemplo simulado
+        // Supongamos que queremos buscar por título o descripción
+        Libro[] librosEncontrados = buscarPorTexto(Libro.obtenerLibros(), textoBusqueda);
+        cargarRecomendaciones(librosEncontrados);
     }
 
-    // Método para simular el filtrado de libros por categoría
-    private void filtrarLibros(String categoria) {
-        // Simulación de filtrado de libros por categoría
-        JOptionPane.showMessageDialog(this, "Simulación de filtrado por categoría: " + categoria, "Filtrar", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void main(String[] args) {
-        // Ejemplo básico para probar la página de inicio
-        JFrame frame = new JFrame("Página de Inicio");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-
-        // Simulación de usuario logueado
-        CardLayout cardLayout = new CardLayout();
-        JPanel panelPrincipal = new JPanel(cardLayout);
-
-        // Mostrar el panel de inicio
-        cardLayout.addLayoutComponent(new Inicio(cardLayout, panelPrincipal), "Inicio");
-        cardLayout.show(panelPrincipal, "Inicio");
-
-        frame.getContentPane().add(panelPrincipal);
-        frame.setVisible(true);
+    // Método para buscar libros por texto en título o descripción
+    private Libro[] buscarPorTexto(Libro[] libros, String textoBusqueda) {
+        // Implementa la lógica para buscar libros por el texto ingresado
+        // Este es un ejemplo simulado
+        // Supongamos que queremos buscar por título o descripción
+        // Aquí implementarías la lógica real según tus necesidades
+        return libros;
     }
 }
-
