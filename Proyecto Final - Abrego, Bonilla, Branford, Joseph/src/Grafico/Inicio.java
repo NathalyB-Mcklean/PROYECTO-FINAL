@@ -1,6 +1,7 @@
 package Grafico;
 
 import Logica.Libro;
+import Logica.Recomendaciones;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -26,27 +27,33 @@ public class Inicio extends JPanel {
         setBackground(new Color(40, 54, 82)); // Color #283652
         setLayout(null); // Usar absolute layout
 
+        // Inicializar componentes y cargar recomendaciones iniciales
+        inicializarComponentes();
+        cargarRecomendaciones(Recomendaciones.obtenerLibros());
+    }
+
+    private void inicializarComponentes() {
         // Botón Cerrar Sesión
         btnCerrarSesion = new JButton("Cerrar Sesión");
-        btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnCerrarSesion.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         btnCerrarSesion.setForeground(new Color(0, 0, 0));
-        btnCerrarSesion.setBackground(new Color(0xFF6347)); // Color naranja
-        btnCerrarSesion.setBounds(20, 20, 120, 30);
+        btnCerrarSesion.setBackground(new Color(0x445E91));
+        btnCerrarSesion.setBounds(647, 17, 133, 30);
         btnCerrarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Lógica para cerrar sesión
-                cardLayout.show(panelPrincipal, "iniciarSesion"); // Volver a la pantalla de inicio de sesión
+                cardLayout.show(panelPrincipal, "IniciarSesion"); // Volver a la pantalla de inicio de sesión
             }
         });
         add(btnCerrarSesion);
 
         // Botón Leídos
         btnLeidos = new JButton("Leídos");
-        btnLeidos.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnLeidos.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         btnLeidos.setForeground(new Color(0, 0, 0));
-        btnLeidos.setBackground(new Color(0x32CD32)); // Color verde
-        btnLeidos.setBounds(160, 20, 120, 30);
+        btnLeidos.setBackground(Color.decode("#445E91"));
+        btnLeidos.setBounds(517, 17, 120, 30);
         btnLeidos.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,11 +66,12 @@ public class Inicio extends JPanel {
         // Barra de búsqueda y botón Buscar
         textFieldBusqueda = new JTextField();
         textFieldBusqueda.setPreferredSize(new Dimension(400, 30));
-        textFieldBusqueda.setBounds(300, 20, 400, 30);
+        textFieldBusqueda.setBounds(20, 17, 400, 30);
         add(textFieldBusqueda);
 
         btnBuscar = new JButton("Buscar");
-        btnBuscar.setBounds(710, 20, 80, 30);
+        btnBuscar.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
+        btnBuscar.setBounds(427, 17, 80, 30);
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,10 +83,13 @@ public class Inicio extends JPanel {
 
         // Combo Box Categorías y botón Filtrar
         comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
+        comboBoxCategorias.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Ficción", "Clásicos", "Romance", "Novela Gótica", "Terror psicológico", "Historia"}));
+        comboBoxCategorias.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         comboBoxCategorias.setBounds(20, 70, 150, 30);
         add(comboBoxCategorias);
 
         btnFiltrar = new JButton("Filtrar");
+        btnFiltrar.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         btnFiltrar.setBounds(180, 70, 80, 30);
         btnFiltrar.addActionListener(new ActionListener() {
             @Override
@@ -96,9 +107,6 @@ public class Inicio extends JPanel {
         JScrollPane scrollRecomendaciones = new JScrollPane(panelRecomendaciones);
         scrollRecomendaciones.setBounds(20, 120, 760, 420);
         add(scrollRecomendaciones);
-
-        // Cargar recomendaciones iniciales desde Libro.obtenerLibros()
-        cargarRecomendaciones(Libro.obtenerLibros());
     }
 
     // Método para cargar recomendaciones de libros
@@ -130,51 +138,20 @@ public class Inicio extends JPanel {
         panelRecomendaciones.repaint();
     }
 
-    // Método para mostrar libros marcados como leídos
+    // Métodos refactorizados para utilizar Recomendaciones
+
     private void mostrarLibrosLeidos() {
-        // Lógica para obtener libros marcados como leídos
-        // Supongamos que tenemos una forma de marcar libros como leídos en la clase Libro
-        // Por ahora, utilizaremos una simulación
-        Libro[] librosLeidos = filtrarLibrosPorEstado(true); // Obtener libros marcados como leídos
+        Libro[] librosLeidos = Recomendaciones.filtrarLibrosPorEstado(true); // Obtener libros marcados como leídos
         cargarRecomendaciones(librosLeidos);
     }
 
-    // Método para filtrar libros por categoría
     private void filtrarLibros(String categoriaSeleccionada) {
-        Libro[] librosFiltrados;
-        if (categoriaSeleccionada.equals("Todos")) {
-            librosFiltrados = Libro.obtenerLibros();
-        } else {
-            // Lógica para filtrar libros por categoría
-            librosFiltrados = filtrarPorCategoria(Libro.obtenerLibros(), categoriaSeleccionada);
-        }
+        Libro[] librosFiltrados = Recomendaciones.filtrarPorCategoria(Recomendaciones.obtenerLibros(), categoriaSeleccionada);
         cargarRecomendaciones(librosFiltrados);
     }
 
-    // Método para filtrar libros por categoría específica
-    private Libro[] filtrarPorCategoria(Libro[] libros, String categoria) {
-        // Implementa la lógica para filtrar libros por la categoría especificada
-        // Este es un ejemplo simulado
-        // Supongamos que cada libro tiene una categoría asignada
-        // Aquí implementarías la lógica real según tus necesidades
-        return libros;
-    }
-
-    // Método para buscar libros por texto ingresado
     private void buscarLibros(String textoBusqueda) {
-        // Lógica para buscar libros según el texto ingresado
-        // Este es un ejemplo simulado
-        // Supongamos que queremos buscar por título o descripción
-        Libro[] librosEncontrados = buscarPorTexto(Libro.obtenerLibros(), textoBusqueda);
+        Libro[] librosEncontrados = Recomendaciones.buscarPorTexto(Recomendaciones.obtenerLibros(), textoBusqueda);
         cargarRecomendaciones(librosEncontrados);
-    }
-
-    // Método para buscar libros por texto en título o descripción
-    private Libro[] buscarPorTexto(Libro[] libros, String textoBusqueda) {
-        // Implementa la lógica para buscar libros por el texto ingresado
-        // Este es un ejemplo simulado
-        // Supongamos que queremos buscar por título o descripción
-        // Aquí implementarías la lógica real según tus necesidades
-        return libros;
     }
 }

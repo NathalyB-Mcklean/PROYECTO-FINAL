@@ -36,7 +36,7 @@ public class Detalles extends JFrame {
         btnCerrarSesion = new JButton("Cerrar Sesión");
         btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
         btnCerrarSesion.setForeground(Color.BLACK);
-        btnCerrarSesion.setBackground(new Color(0xFF6347)); // Color naranja
+        btnCerrarSesion.setBackground(new Color(0x445E91)); 
         btnCerrarSesion.setBounds(20, 15, 120, 30);
         btnCerrarSesion.addActionListener(new ActionListener() {
             @Override
@@ -51,7 +51,7 @@ public class Detalles extends JFrame {
         btnMarcarLeido = new JButton("Por Leer");
         btnMarcarLeido.setFont(new Font("Arial", Font.PLAIN, 14));
         btnMarcarLeido.setForeground(Color.BLACK);
-        btnMarcarLeido.setBackground(new Color(0xFFFF00)); // Color amarillo
+        btnMarcarLeido.setBackground(new Color(0x445E91)); 
         btnMarcarLeido.setBounds(160, 15, 120, 30);
         btnMarcarLeido.addActionListener(new ActionListener() {
             @Override
@@ -60,10 +60,10 @@ public class Detalles extends JFrame {
                 leido = !leido;
                 if (leido) {
                     btnMarcarLeido.setText("Leído");
-                    btnMarcarLeido.setBackground(new Color(0x32CD32)); // Color verde
+                    btnMarcarLeido.setBackground(new Color(0x576E9C)); // Color verde
                 } else {
                     btnMarcarLeido.setText("Por Leer");
-                    btnMarcarLeido.setBackground(new Color(0xFFFF00)); // Color amarillo
+                    btnMarcarLeido.setBackground(new Color(0x445E91)); // Color amarillo
                 }
             }
         });
