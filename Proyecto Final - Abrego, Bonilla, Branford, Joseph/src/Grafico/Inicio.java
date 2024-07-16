@@ -128,7 +128,10 @@ public class Inicio extends JPanel {
             btnDetalles.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(panelLibro, "Simulación de detalles del libro: " + libro.getTitulo(), "Detalles", JOptionPane.INFORMATION_MESSAGE);
+                    // Crear una nueva instancia de Detalles con la información del libro
+                    Detalles detalles = (Detalles) panelPrincipal.getComponent(2); // Asumiendo que el panel Detalles es el tercer componente
+                    detalles.setLibroDetalles(libro);
+                    cardLayout.show(panelPrincipal, "Detalles");
                 }
             });
             panelLibro.add(btnDetalles, BorderLayout.SOUTH);

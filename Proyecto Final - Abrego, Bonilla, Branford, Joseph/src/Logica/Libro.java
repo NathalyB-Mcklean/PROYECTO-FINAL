@@ -3,11 +3,13 @@ package Logica;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Libro {
     // Atributos de la clase Libro
     private static Libro[] libros = {
         new Libro("Cien años de soledad", "Gabriel García Márquez", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía a lo largo de varias generaciones en el pueblo ficticio de Macondo. Con un estilo mágico-realista, el autor explora temas como la soledad, la violencia y el poder del mito.", "Ficción"),
-        new Libro("El principito", "Antoine de Saint-Exupéry", "Una novela corta y la obra más famosa de Antoine de Saint-Exupéry. A través de la historia de un joven príncipe que viaja de planeta en planeta, se exploran profundas lecciones sobre la vida, el amor, la amistad y la pérdida.", "Ficción"),
+        new Libro("El Principito", "Antoine de Saint-Exupéry", "Una novela corta y la obra más famosa de Antoine de Saint-Exupéry. A través de la historia de un joven príncipe que viaja de planeta en planeta, se exploran profundas lecciones sobre la vida, el amor, la amistad y la pérdida.", "Ficción"),
         new Libro("Don Quijote de la Mancha", "Miguel de Cervantes", "La obra cumbre de la literatura española escrita por Miguel de Cervantes. Esta novela relata las aventuras de un hidalgo manchego que, enloquecido por la lectura de libros de caballerías, decide convertirse en un caballero andante para revivir la justicia en el mundo.", "Clásicos"),
         new Libro("Harry Potter y la piedra filosofal", "J.K. Rowling", "El primer libro de la serie de Harry Potter escrita por J.K. Rowling. Este libro introduce a los lectores en el mundo mágico, siguiendo a Harry mientras descubre su herencia mágica y asiste a la Escuela de Magia y Hechicería de Hogwarts.", "Ficción"),
         new Libro("1984", "George Orwell", "Una novela distópica de George Orwell que describe un futuro totalitario. La obra explora temas como la vigilancia, el control de la información, la represión política y el poder de la propaganda en una sociedad donde el Gran Hermano lo ve todo.", "Ficción"),
@@ -104,4 +106,9 @@ public class Libro {
         }
         return librosFiltrados;
     }
+
+	public ImageIcon getPortada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

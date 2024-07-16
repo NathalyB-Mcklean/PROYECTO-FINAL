@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
 
+import Logica.Libro;
+
 public class Detalles extends JFrame {
 
     private JButton btnCerrarSesion;
@@ -25,7 +27,7 @@ public class Detalles extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600); // Tamaño del JFrame
         setLocationRelativeTo(null); // Centrar en pantalla
-        setLayout(new BorderLayout()); // Usar BorderLayout
+        getContentPane().setLayout(new BorderLayout()); // Usar BorderLayout
         getContentPane().setBackground(new Color(0x283652)); // Color de fondo #283652
 
         JPanel panelTop = new JPanel(null);
@@ -33,7 +35,7 @@ public class Detalles extends JFrame {
         panelTop.setBackground(new Color(0x283652));
 
         // Botón Cerrar Sesión
-        btnCerrarSesion = new JButton("Cerrar Sesión");
+        btnCerrarSesion = new JButton("Regresar");
         btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
         btnCerrarSesion.setForeground(Color.BLACK);
         btnCerrarSesion.setBackground(new Color(0x445E91)); 
@@ -167,4 +169,9 @@ public class Detalles extends JFrame {
             }
         });
     }
+
+	public void setLibroDetalles(Libro libro) {
+		// TODO Auto-generated method stub
+		
+	}
 }
