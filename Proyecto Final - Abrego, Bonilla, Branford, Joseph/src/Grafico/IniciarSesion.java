@@ -73,24 +73,6 @@ public class IniciarSesion extends JPanel {
             JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
             lblImagen.setBounds(315, 11, 283, 183);
             add(lblImagen);
-            
-            JButton btnRegistarse = new JButton("Registrarse");
-            btnRegistarse.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-            btnRegistarse.setBounds(485, 488, 125, 30);
-            btnRegistarse.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cardLayout.show(panelPrincipal, "Registro");
-                }
-            });
-            add(btnRegistarse);
-            
-            JLabel lblanNoTienes = new JLabel("¿Aún no tienes una cuenta?");
-            lblanNoTienes.setHorizontalAlignment(SwingConstants.CENTER);
-            lblanNoTienes.setForeground(Color.WHITE);
-            lblanNoTienes.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-            lblanNoTienes.setBounds(448, 463, 208, 32);
-            add(lblanNoTienes);
         } catch (IOException e) {
             e.printStackTrace();
         }
