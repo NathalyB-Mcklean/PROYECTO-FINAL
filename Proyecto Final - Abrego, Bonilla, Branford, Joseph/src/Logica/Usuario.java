@@ -8,7 +8,7 @@ public class Usuario {
     // Arreglo estático para almacenar todos los usuarios
     private static Usuario[] usuarios = new Usuario[10];
     private static int contadorUsuarios = 0;
-
+//arreglo
     public Usuario(String nombre, String correo, String contraseña) {
         this.nombre = nombre;
         this.correo = correo;
