@@ -13,7 +13,7 @@ public class Perfil extends JPanel {
     private String[] amigos = {"Amigo 1", "Amigo 2", "Amigo 3", "Amigo 4"};
     private JPanel panelDerecho; // Panel para mostrar el contenido dinámico
 
-    public Perfil(String nombreUsuario, CardLayout cardLayout, JPanel panelPrincipal) {
+    public Perfil(String nombreUsuario, String string, String string2, CardLayout cardLayout, JPanel panelPrincipal) {
         setLayout(null); // Usar Absolute Layout
         setBackground(new Color(44, 62, 80)); // Fondo general
 

@@ -35,7 +35,7 @@ public class Inicio extends JPanel {
 
     private void inicializarComponentes() {
         // Botón Perfil
-    	btnPerfil = new JButton("Perfil");
+        btnPerfil = new JButton("Perfil");
         btnPerfil.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         btnPerfil.setForeground(new Color(0, 0, 0));
         btnPerfil.setBackground(new Color(0x445E91));
@@ -43,9 +43,11 @@ public class Inicio extends JPanel {
         btnPerfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 cardLayout.show(panelPrincipal, "Perfil");
             }
         });
+
         add(btnPerfil);
 
         // Botón Leídos
@@ -83,7 +85,6 @@ public class Inicio extends JPanel {
 
         // Combo Box Categorías y botón Filtrar
         comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
-        comboBoxCategorias.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Ficción", "Clásicos", "Romance", "Novela Gótica", "Terror psicológico", "Historia"}));
         comboBoxCategorias.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         comboBoxCategorias.setBounds(20, 70, 150, 30);
         add(comboBoxCategorias);
@@ -159,19 +160,23 @@ public class Inicio extends JPanel {
         cargarRecomendaciones(librosEncontrados);
     }
 
-   
+    public static void main(String[] args) {
+        // Ejemplo de uso del JPanel Inicio
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JFrame frame = new JFrame();
+                frame.setSize(800, 600);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setLayout(new BorderLayout());
 
+                JPanel panelPrincipal = new JPanel(new CardLayout());
+                panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
+
+                frame.add(panelPrincipal, BorderLayout.CENTER);
+                frame.setVisible(true);
+            }
+        });
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
