@@ -21,6 +21,11 @@ public class IniciarSesion extends JPanel {
         setBackground(new Color(0x202A40)); // Fondo similar al de Registro
         setLayout(null);
 
+     // Imágenes arriba del texto
+        JLabel imagenIzquierda = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png").getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        imagenIzquierda.setBounds(285, -22, 307, 286); // Ajustar tamaño y posición
+        add(imagenIzquierda);
+        
         JLabel lblNewLabel = new JLabel("INICIO DE SESIÓN");
         lblNewLabel.setFont(new Font("Yu Gothic", Font.PLAIN, 20));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);

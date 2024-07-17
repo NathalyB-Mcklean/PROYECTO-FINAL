@@ -42,7 +42,6 @@ public class Inicio extends JPanel {
         btnPerfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
                 cardLayout.show(panelPrincipal, "Perfil");
             }
         });
@@ -115,7 +114,7 @@ public class Inicio extends JPanel {
             btnDetalles.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Detalles detallesPanel = new Detalles(libro.getTitulo(), libro.getDescripcion(), new ImageIcon(libro.getPortada()), cardLayout, panelPrincipal);
+                    Detalles detallesPanel = new Detalles(libro, cardLayout, panelPrincipal);
                     panelPrincipal.add(detallesPanel, "Detalles");
 
                     cardLayout.show(panelPrincipal, "Detalles");
@@ -155,5 +154,3 @@ public class Inicio extends JPanel {
         });
     }
 }
-
-

@@ -2,6 +2,9 @@ package Grafico;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import Logica.Libro;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,10 +32,11 @@ public class Detalles extends JPanel {
 
     private String tituloLibro;
 
-    public Detalles(String tituloLibro, String descripcionLibro, ImageIcon portada, CardLayout cardLayout, JPanel panelPrincipal) {
+    public Detalles(Libro libro, CardLayout cardLayout, JPanel panelPrincipal) {
         this.cardLayout = cardLayout;
         this.panelPrincipal = panelPrincipal;
-        this.tituloLibro = tituloLibro;
+        this.tituloLibro = libro.getTitulo();
+        this.comentarios = new ArrayList<>(); // Inicializar la lista de comentarios
 
         setBackground(new Color(0x283652)); // Color de fondo #283652
         setLayout(null); // Usar Absolute Layout
@@ -74,15 +78,17 @@ public class Detalles extends JPanel {
         add(btnRegresar);
 
         // Etiqueta para mostrar el libro seleccionado
-        lblLibroSeleccionado = new JLabel(tituloLibro);
+        lblLibroSeleccionado = new JLabel(libro.getTitulo());
         lblLibroSeleccionado.setFont(new Font("Arial", Font.BOLD, 18));
         lblLibroSeleccionado.setForeground(Color.WHITE);
         lblLibroSeleccionado.setBounds(20, 60, 760, 30);
         add(lblLibroSeleccionado);
 
-        // Etiqueta para la portada del libro
-        lblPortada = new JLabel(portada);
-        lblPortada.setBounds(20, 100, 200, 300);
+        // Redimensionar la imagen de la portada
+        ImageIcon portadaIcon = libro.getPortadaIcon();
+        Image portadaImage = portadaIcon.getImage().getScaledInstance(200, 250, Image.SCALE_SMOOTH);
+        lblPortada = new JLabel(new ImageIcon(portadaImage));
+        lblPortada.setBounds(20, 100, 171, 220);
         add(lblPortada);
 
         // Panel para la sección de reseña
@@ -92,7 +98,7 @@ public class Detalles extends JPanel {
         lblResena.setBounds(240, 100, 520, 20);
         add(lblResena);
 
-        textAreaResena = new JTextArea(descripcionLibro);
+        textAreaResena = new JTextArea(libro.getDescripcion());
         textAreaResena.setLineWrap(true);
         textAreaResena.setWrapStyleWord(true);
         textAreaResena.setEditable(false);
@@ -127,7 +133,7 @@ public class Detalles extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // Establecer calificación y actualizar los botones
                     calificacion = index + 1;
-                    BookData.getInstance().setCalificacion(tituloLibro, calificacion);
+                    // BookData.getInstance().setCalificacion(tituloLibro, calificacion); // Actualiza con tu método para guardar la calificación
                     updateRatingButtons();
                 }
             });
@@ -160,7 +166,8 @@ public class Detalles extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String comentario = textAreaComentario.getText().trim();
                 if (!comentario.isEmpty()) {
-                    BookData.getInstance().addComentario(tituloLibro, comentario);
+                    // BookData.getInstance().addComentario(tituloLibro, comentario); // Actualiza con tu método para guardar comentarios
+                    comentarios.add(comentario); // Añadir comentario a la lista
                     textAreaComentario.setText("");
                     actualizarComentarios();
                 }
@@ -185,8 +192,8 @@ public class Detalles extends JPanel {
 
     // Método para cargar datos
     private void cargarDatos() {
-        comentarios = BookData.getInstance().getComentarios(tituloLibro);
-        calificacion = BookData.getInstance().getCalificacion(tituloLibro);
+        // comentarios = BookData.getInstance().getComentarios(tituloLibro); // Actualiza con tu método para obtener comentarios
+        // calificacion = BookData.getInstance().getCalificacion(tituloLibro); // Actualiza con tu método para obtener calificación
     }
 
     // Método para actualizar los botones de calificación

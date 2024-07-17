@@ -9,8 +9,8 @@ import Logica.Usuario;
 
 public class Registro extends JPanel {
 
-   //cambiar a public
-	private JTextField textFieldNombre;
+    // Cambiar a public
+    private JTextField textFieldNombre;
     private JTextField textFieldCorreo;
     private JPasswordField passwordField;
 
@@ -27,6 +27,13 @@ public class Registro extends JPanel {
     private void inicializarComponentes() {
         setLayout(null); // Establecer AbsoluteLayout
         setBackground(new Color(0x202A40)); // Fondo más claro
+
+        // Imágenes arriba del texto REGISTRO
+        JLabel imagenIzquierda = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png").getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
+        imagenIzquierda.setBounds(285, -22, 307, 286); // Ajustar tamaño y posición
+        add(imagenIzquierda);
+
+       
 
         // Etiquetas y campos de texto
         JLabel lblNombre = new JLabel("Usuario:");
@@ -122,4 +129,3 @@ public class Registro extends JPanel {
         }
     }
 }
-
