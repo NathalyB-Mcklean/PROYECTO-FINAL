@@ -43,11 +43,11 @@ public class Inicio extends JPanel {
         btnPerfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para ir a la interfaz de perfil
-                Perfil perfil = new Perfil("NombreUsuario");
-                perfil.setVisible(true);
+                
+                cardLayout.show(panelPrincipal, "Perfil");
             }
         });
+
         add(btnPerfil);
 
         // Botón Leídos

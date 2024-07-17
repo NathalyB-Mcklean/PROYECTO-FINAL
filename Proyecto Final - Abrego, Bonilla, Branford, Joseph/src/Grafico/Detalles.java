@@ -26,10 +26,11 @@ public class Detalles extends JPanel {
         this.panelPrincipal = panelPrincipal;
 
         setBackground(new Color(0x283652)); // Color de fondo #283652
-        setLayout(new BorderLayout());
+        setLayout(null); // Absolute layout
 
+        // Panel superior
         JPanel panelTop = new JPanel(null);
-        panelTop.setPreferredSize(new Dimension(800, 60));
+        panelTop.setBounds(0, 0, 800, 60);
         panelTop.setBackground(new Color(0x283652));
 
         // Botón Por Leer / Leído
@@ -54,6 +55,7 @@ public class Detalles extends JPanel {
         });
         panelTop.add(btnMarcarLeido);
 
+        // Botón Regresar
         JButton btnRegresar = new JButton("Regresar");
         btnRegresar.setForeground(Color.BLACK);
         btnRegresar.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -67,9 +69,11 @@ public class Detalles extends JPanel {
         });
         panelTop.add(btnRegresar);
 
-        add(panelTop, BorderLayout.NORTH);
+        add(panelTop);
 
+        // Panel central
         JPanel panelCenter = new JPanel(null);
+        panelCenter.setBounds(0, 60, 800, 540);
         panelCenter.setBackground(new Color(0x283652));
 
         // Etiqueta para mostrar el libro seleccionado
@@ -139,7 +143,7 @@ public class Detalles extends JPanel {
 
         panelCenter.add(panelCalificacion);
 
-        add(panelCenter, BorderLayout.CENTER);
+        add(panelCenter);
     }
 
     // Método para actualizar los botones de calificación
@@ -166,8 +170,9 @@ public class Detalles extends JPanel {
                 panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
 
                 Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), (CardLayout) panelPrincipal.getLayout(), panelPrincipal);
+                panelPrincipal.add(detallesPanel, "Detalles");
 
-                frame.getContentPane().add(detallesPanel, BorderLayout.CENTER);
+                frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
                 frame.setVisible(true);
             }
         });
