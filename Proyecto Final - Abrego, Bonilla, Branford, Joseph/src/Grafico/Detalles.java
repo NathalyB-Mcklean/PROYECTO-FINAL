@@ -175,4 +175,4 @@ public class Detalles extends JFrame {
 		
 	}
 }
-//hola
+//holaaaaaaaaa dsvdvdsv
