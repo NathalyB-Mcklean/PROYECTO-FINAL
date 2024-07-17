@@ -3,11 +3,10 @@ package Grafico;
 import Logica.Libro;
 import Logica.Recomendaciones;
 
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Inicio extends JPanel {
 
@@ -85,6 +84,7 @@ public class Inicio extends JPanel {
 
         // Combo Box Categorías y botón Filtrar
         comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
+        comboBoxCategorias.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Ficción", "Clásicos", "Romance", "Novela Gótica", "Terror psicológico", "Historia"}));
         comboBoxCategorias.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         comboBoxCategorias.setBounds(20, 70, 150, 30);
         add(comboBoxCategorias);
@@ -126,11 +126,15 @@ public class Inicio extends JPanel {
             panelLibro.add(scrollPane, BorderLayout.CENTER);
             JButton btnDetalles = new JButton("Ver detalles");
 
-            // Acción para ver detalles del libro
             btnDetalles.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Detalles detallesPanel = new Detalles(libro.getTitulo(), libro.getDescripcion(), new ImageIcon(libro.getPortada()), cardLayout, panelLibro);
+
+                    // Crear una nueva instancia de Detalles con la información del libro
+                    Detalles detalles = (Detalles) panelPrincipal.getComponent(2); // Asumiendo que el panel Detalles es el tercer componente
+                    detalles.setLibroDetalles(libro);
+
+                    Detalles detallesPanel = new Detalles(libro.getTitulo(), libro.getDescripcion(), new ImageIcon(libro.getPortada()));
                     panelPrincipal.add(detallesPanel, "Detalles");
 
                     cardLayout.show(panelPrincipal, "Detalles");
@@ -158,23 +162,5 @@ public class Inicio extends JPanel {
     private void buscarLibros(String textoBusqueda) {
         Libro[] librosEncontrados = Recomendaciones.buscarPorTexto(Recomendaciones.obtenerLibros(), textoBusqueda);
         cargarRecomendaciones(librosEncontrados);
-    }
-
-    public static void main(String[] args) {
-        // Ejemplo de uso del JPanel Inicio
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame();
-                frame.setSize(800, 600);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLayout(new BorderLayout());
-
-                JPanel panelPrincipal = new JPanel(new CardLayout());
-                panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
-
-                frame.add(panelPrincipal, BorderLayout.CENTER);
-                frame.setVisible(true);
-            }
-        });
     }
 }
