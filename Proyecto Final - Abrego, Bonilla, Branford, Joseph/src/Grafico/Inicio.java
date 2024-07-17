@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 public class Inicio extends JPanel {
 
-    private JButton btnCerrarSesion;
+    private JButton btnPerfil;
     private JButton btnLeidos;
     private JTextField textFieldBusqueda;
     private JButton btnBuscar;
@@ -33,20 +33,21 @@ public class Inicio extends JPanel {
     }
 
     private void inicializarComponentes() {
-        // Botón Cerrar Sesión
-        btnCerrarSesion = new JButton("Cerrar Sesión");
-        btnCerrarSesion.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnCerrarSesion.setForeground(new Color(0, 0, 0));
-        btnCerrarSesion.setBackground(new Color(0x445E91));
-        btnCerrarSesion.setBounds(647, 17, 133, 30);
-        btnCerrarSesion.addActionListener(new ActionListener() {
+        // Botón Perfil
+        btnPerfil = new JButton("Perfil");
+        btnPerfil.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+        btnPerfil.setForeground(new Color(0, 0, 0));
+        btnPerfil.setBackground(new Color(0x445E91));
+        btnPerfil.setBounds(647, 17, 133, 30);
+        btnPerfil.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para cerrar sesión
-                cardLayout.show(panelPrincipal, "IniciarSesion"); // Volver a la pantalla de inicio de sesión
+                // Lógica para ir a la interfaz de perfil
+                Perfil perfil = new Perfil("NombreUsuario");
+                perfil.setVisible(true);
             }
         });
-        add(btnCerrarSesion);
+        add(btnPerfil);
 
         // Botón Leídos
         btnLeidos = new JButton("Leídos");
@@ -128,8 +129,14 @@ public class Inicio extends JPanel {
             btnDetalles.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+
+                    // Crear una nueva instancia de Detalles con la información del libro
+                    Detalles detalles = (Detalles) panelPrincipal.getComponent(2); // Asumiendo que el panel Detalles es el tercer componente
+                    detalles.setLibroDetalles(libro);
+
                     Detalles detallesPanel = new Detalles(libro.getTitulo(), libro.getDescripcion(), new ImageIcon(libro.getPortada()));
                     panelPrincipal.add(detallesPanel, "Detalles");
+
                     cardLayout.show(panelPrincipal, "Detalles");
                 }
             });

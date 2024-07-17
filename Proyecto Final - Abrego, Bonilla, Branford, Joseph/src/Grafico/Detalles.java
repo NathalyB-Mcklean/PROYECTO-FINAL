@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
+import Logica.Libro;
 
 public class Detalles extends JFrame {
 
@@ -20,7 +21,7 @@ public class Detalles extends JFrame {
     private boolean leido = false;
     private int calificacion = 0;
 
-    public Detalles(String tituloLibro, String descripcionLibro, ImageIcon portada) {
+    public Detalles(Libro libro) {
         setTitle("Detalles del Libro");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600); // Tamaño del JFrame
@@ -75,14 +76,14 @@ public class Detalles extends JFrame {
         panelCenter.setBackground(new Color(0x283652));
 
         // Etiqueta para mostrar el libro seleccionado
-        lblLibroSeleccionado = new JLabel(tituloLibro);
+        lblLibroSeleccionado = new JLabel(libro.getTitulo());
         lblLibroSeleccionado.setFont(new Font("Arial", Font.BOLD, 18));
         lblLibroSeleccionado.setForeground(Color.WHITE);
         lblLibroSeleccionado.setBounds(20, 10, 760, 30);
         panelCenter.add(lblLibroSeleccionado);
 
         // Etiqueta para la portada del libro
-        lblPortada = new JLabel(portada);
+        lblPortada = new JLabel(libro.getPortada());
         lblPortada.setBounds(20, 50, 200, 300);
         panelCenter.add(lblPortada);
 
@@ -99,7 +100,7 @@ public class Detalles extends JFrame {
         panelResena.add(lblResena, BorderLayout.NORTH);
 
         // Área de texto para la reseña
-        textAreaResena = new JTextArea(descripcionLibro);
+        textAreaResena = new JTextArea(libro.getDescripcion());
         textAreaResena.setLineWrap(true);
         textAreaResena.setWrapStyleWord(true);
         JScrollPane scrollPaneResena = new JScrollPane(textAreaResena);
@@ -156,15 +157,4 @@ public class Detalles extends JFrame {
                 btnCalificar[i].setBackground(new Color(0xCCCCCC)); // Color gris para estrellas no seleccionadas
             }
         }
-    }
-
-    public static void main(String[] args) {
-        // Ejemplo de uso del JFrame Detalles
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ImageIcon portada = new ImageIcon("ruta/a/la/imagen/portada.png");
-                new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", portada);
-            }
-        });
-    }
-}
+    }}
