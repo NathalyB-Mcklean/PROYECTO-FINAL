@@ -31,6 +31,9 @@ public class Main extends JFrame {
         Inicio inicioPanel = new Inicio(cardLayout, panelPrincipal);
         panelPrincipal.add(inicioPanel, "inicio");
 
+        Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), cardLayout, panelPrincipal);
+        panelPrincipal.add(detallesPanel, "detalles");
+
         cardLayout.show(panelPrincipal, "presentacion");
 
         getContentPane().add(panelPrincipal);
@@ -69,4 +72,3 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(() -> new Main());
     }
 }
-

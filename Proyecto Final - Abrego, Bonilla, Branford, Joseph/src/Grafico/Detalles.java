@@ -64,7 +64,7 @@ public class Detalles extends JPanel {
         btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panelPrincipal, "Inicio");
+                cardLayout.show(panelPrincipal, "inicio");
             }
         });
         panelTop.add(btnRegresar);
@@ -155,27 +155,6 @@ public class Detalles extends JPanel {
                 btnCalificar[i].setBackground(new Color(0xCCCCCC)); // Color gris para estrellas no seleccionadas
             }
         }
-    }
-
-    public static void main(String[] args) {
-        // Ejemplo de uso del JPanel Detalles
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame();
-                frame.setSize(800, 600);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().setLayout(new BorderLayout());
-
-                JPanel panelPrincipal = new JPanel(new CardLayout());
-                panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
-
-                Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), (CardLayout) panelPrincipal.getLayout(), panelPrincipal);
-                panelPrincipal.add(detallesPanel, "Detalles");
-
-                frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
-                frame.setVisible(true);
-            }
-        });
     }
 }
 
