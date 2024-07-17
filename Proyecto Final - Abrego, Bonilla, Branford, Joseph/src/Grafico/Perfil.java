@@ -3,7 +3,7 @@ package Grafico;
 import javax.swing.*;
 import java.awt.*;
 
-public class Perfil extends JFrame {
+public class Perfil extends JPanel {
     private JLabel lblNombreUsuario;
     private JPanel panelInicio, panelAmigos, panelUltimosVistos, panelLeidos;
     private JList<String> listaLibros, listaAmigos;
@@ -13,22 +13,16 @@ public class Perfil extends JFrame {
     private String[] amigos = {"Amigo 1", "Amigo 2", "Amigo 3", "Amigo 4"};
     private JPanel panelDerecho; // Panel para mostrar el contenido dinámico
 
-    public Perfil(String nombreUsuario) {
-        super("Perfil de Usuario");
-
-        // Configuración del JFrame
-        setSize(1000, 500); // Aumentamos el ancho para dar espacio al panel derecho
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        getContentPane().setLayout(null); // Usar Absolute Layout
-        getContentPane().setBackground(new Color(44, 62, 80)); // Fondo general
+    public Perfil(String nombreUsuario, CardLayout cardLayout, JPanel panelPrincipal) {
+        setLayout(null); // Usar Absolute Layout
+        setBackground(new Color(44, 62, 80)); // Fondo general
 
         // Etiqueta de bienvenida
         lblNombreUsuario = new JLabel("Bienvenido, " + nombreUsuario);
         lblNombreUsuario.setForeground(Color.WHITE);
         lblNombreUsuario.setFont(new Font("Arial", Font.BOLD, 20));
         lblNombreUsuario.setBounds(20, 20, 300, 30);
-        getContentPane().add(lblNombreUsuario);
+        add(lblNombreUsuario);
 
         // Panel izquierdo con opciones
         JPanel panelIzquierdo = new JPanel();
@@ -49,14 +43,14 @@ public class Perfil extends JFrame {
         btnLeidos.addActionListener(e -> mostrarPanel(panelLeidos));
         panelIzquierdo.add(btnLeidos);
 
-        getContentPane().add(panelIzquierdo);
+        add(panelIzquierdo);
 
         // Panel de contenido dinámico
         panelDerecho = new JPanel();
         panelDerecho.setBounds(200, 50, 750, 400);
         panelDerecho.setLayout(new CardLayout());
         panelDerecho.setBackground(Color.WHITE);
-        getContentPane().add(panelDerecho);
+        add(panelDerecho);
 
         // Crear el panel de inicio
         panelInicio = crearPanelInicio();
@@ -75,12 +69,11 @@ public class Perfil extends JFrame {
         // Botón de Regresar en la esquina superior derecha
         btnRegresar = new JButton("Regresar");
         btnRegresar.setBounds(880, 10, 100, 30); // Colocar el botón en la esquina superior derecha
-        getContentPane().add(btnRegresar);
+        btnRegresar.addActionListener(e -> cardLayout.show(panelPrincipal, "Inicio"));
+        add(btnRegresar);
 
         // Mostrar el panel de inicio por defecto
         mostrarPanel(panelInicio);
-
-        setVisible(true);
     }
 
     // Método para crear el panel de Inicio
@@ -182,10 +175,5 @@ public class Perfil extends JFrame {
         } else if (panel == panelLeidos) {
             cl.show(panelDerecho, "Leidos");
         }
-    }
-
-    // Método principal para ejecutar la aplicación
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Perfil("Usuario123"));
     }
 }

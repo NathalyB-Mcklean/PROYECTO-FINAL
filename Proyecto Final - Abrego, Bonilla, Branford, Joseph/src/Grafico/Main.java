@@ -2,8 +2,6 @@ package Grafico;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
 
@@ -31,6 +29,9 @@ public class Main extends JFrame {
         Inicio inicioPanel = new Inicio(cardLayout, panelPrincipal);
         panelPrincipal.add(inicioPanel, "inicio");
 
+        Perfil perfilPanel = new Perfil("Usuario", cardLayout, panelPrincipal);  // Agregar panel Perfil
+        panelPrincipal.add(perfilPanel, "Perfil");
+
         cardLayout.show(panelPrincipal, "presentacion");
 
         getContentPane().add(panelPrincipal);
@@ -55,11 +56,7 @@ public class Main extends JFrame {
         JButton btnNewButton = new JButton("Ingresar a la aplicación");
         btnNewButton.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         btnNewButton.setBounds(321, 506, 200, 23);
-        btnNewButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panelPrincipal, "registro");
-            }
-        });
+        btnNewButton.addActionListener(e -> cardLayout.show(panelPrincipal, "registro"));
         panel.add(btnNewButton);
 
         return panel;
@@ -69,4 +66,3 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(() -> new Main());
     }
 }
-
