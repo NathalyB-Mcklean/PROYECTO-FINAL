@@ -1,9 +1,13 @@
 package Grafico;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import Logica.Usuario;
 
@@ -96,6 +100,16 @@ public class Registro extends JPanel {
         lblyaTienesUna.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         lblyaTienesUna.setBounds(375, 458, 171, 30);
         add(lblyaTienesUna);
+  
+
+	    try {
+	        BufferedImage originalImage = ImageIO.read(new File("Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
+	        JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
+	        lblImagen.setBounds(315, 11, 283, 183);
+	        add(lblImagen);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
     }
 
     private void registrarUsuario() {
