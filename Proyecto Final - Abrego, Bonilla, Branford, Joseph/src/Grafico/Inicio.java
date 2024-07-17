@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 public class Inicio extends JPanel {
 
     private JButton btnPerfil;
-    private JButton btnLeidos;
     private JTextField textFieldBusqueda;
     private JButton btnBuscar;
     private JComboBox<String> comboBoxCategorias;
@@ -50,21 +49,6 @@ public class Inicio extends JPanel {
 
         add(btnPerfil);
 
-        // Botón Leídos
-        btnLeidos = new JButton("Leídos");
-        btnLeidos.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
-        btnLeidos.setForeground(new Color(0, 0, 0));
-        btnLeidos.setBackground(Color.decode("#445E91"));
-        btnLeidos.setBounds(517, 17, 120, 30);
-        btnLeidos.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para mostrar libros leídos
-                mostrarLibrosLeidos();
-            }
-        });
-        add(btnLeidos);
-
         // Barra de búsqueda y botón Buscar
         textFieldBusqueda = new JTextField();
         textFieldBusqueda.setPreferredSize(new Dimension(400, 30));
@@ -85,6 +69,7 @@ public class Inicio extends JPanel {
 
         // Combo Box Categorías y botón Filtrar
         comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
+        comboBoxCategorias.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Ficción", "Clásicos", "Romance", "Novela Gótica", "Terror psicológico", "Historia"}));
         comboBoxCategorias.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         comboBoxCategorias.setBounds(20, 70, 150, 30);
         add(comboBoxCategorias);
@@ -143,13 +128,6 @@ public class Inicio extends JPanel {
         panelRecomendaciones.repaint();
     }
 
-    // Métodos refactorizados para utilizar Recomendaciones
-
-    private void mostrarLibrosLeidos() {
-        Libro[] librosLeidos = Recomendaciones.filtrarLibrosPorEstado(true); // Obtener libros marcados como leídos
-        cargarRecomendaciones(librosLeidos);
-    }
-
     private void filtrarLibros(String categoriaSeleccionada) {
         Libro[] librosFiltrados = Recomendaciones.filtrarPorCategoria(Recomendaciones.obtenerLibros(), categoriaSeleccionada);
         cargarRecomendaciones(librosFiltrados);
@@ -166,13 +144,12 @@ public class Inicio extends JPanel {
             public void run() {
                 JFrame frame = new JFrame();
                 frame.setSize(800, 600);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setLayout(new BorderLayout());
+                frame.getContentPane().setLayout(new BorderLayout());
 
                 JPanel panelPrincipal = new JPanel(new CardLayout());
                 panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
 
-                frame.add(panelPrincipal, BorderLayout.CENTER);
+                frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
                 frame.setVisible(true);
             }
         });

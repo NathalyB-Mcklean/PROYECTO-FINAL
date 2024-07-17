@@ -42,16 +42,5 @@ public class Recomendaciones {
         return librosEncontrados.toArray(new Libro[0]);
     }
 
-    // Método para filtrar libros por estado de leído
-    public static Libro[] filtrarLibrosPorEstado(boolean leidos) {
-        List<Libro> librosFiltrados = new ArrayList<>();
-
-        for (Libro libro : obtenerLibros()) {
-            if (libro.isLeido() == leidos) {
-                librosFiltrados.add(libro);
-            }
-        }
-
-        return librosFiltrados.toArray(new Libro[0]);
-    }
+    
 }

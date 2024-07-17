@@ -1,61 +1,78 @@
 package Grafico;
 
 import javax.swing.*;
-import Logica.Usuario;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import Logica.Usuario;
 
 public class Perfil extends JPanel {
-    private JLabel lblNombreUsuario;
-    private JLabel lblCorreoUsuario;
-    private JButton btnRegresar, btnCerrarSesion;
 
-    public Perfil(Usuario usuario, CardLayout cardLayout, JPanel panelPrincipal) {
+    /**
+     * @wbp.parser.constructor
+     */
+    public Perfil(String nombreUsuario, String correo, String contraseña, CardLayout cardLayout, JPanel panelPrincipal) {
         setLayout(null); // Usar Absolute Layout
-        setBackground(new Color(40, 54, 82)); // Fondo #283652
+        setBackground(new Color(44, 54, 82)); // Fondo general
 
         // Etiqueta de bienvenida
-        lblNombreUsuario = new JLabel("Bienvenido, " + usuario.getNombre());
+        JLabel lblNombreUsuario = new JLabel("Bienvenido, " + nombreUsuario);
         lblNombreUsuario.setForeground(Color.WHITE);
-        lblNombreUsuario.setFont(new Font("Arial", Font.BOLD, 26));
-        lblNombreUsuario.setBounds(182, 154, 400, 30);
+        lblNombreUsuario.setFont(new Font("Arial", Font.BOLD, 20));
+        lblNombreUsuario.setBounds(365, 101, 300, 30);
         add(lblNombreUsuario);
 
-        // Etiqueta de correo
-        lblCorreoUsuario = new JLabel("Correo: " + usuario.getCorreo());
-        lblCorreoUsuario.setForeground(Color.WHITE);
-        lblCorreoUsuario.setFont(new Font("Arial", Font.PLAIN, 18));
-        lblCorreoUsuario.setBounds(182, 186, 400, 30);
-        add(lblCorreoUsuario);
+        // Mostrar correo
+        JLabel lblCorreo = new JLabel("Correo: " + correo);
+        lblCorreo.setForeground(Color.WHITE);
+        lblCorreo.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblCorreo.setBounds(400, 142, 300, 30);
+        add(lblCorreo);
 
-        // Panel izquierdo con opciones
+        // Mostrar contraseña
+        JLabel lblContraseña = new JLabel("Contraseña: " + contraseña);
+        lblContraseña.setForeground(Color.WHITE);
+        lblContraseña.setFont(new Font("Arial", Font.PLAIN, 16));
+        lblContraseña.setBounds(389, 183, 300, 30);
+        add(lblContraseña);
+
+        // Panel izquierdo con botones
         JPanel panelIzquierdo = new JPanel();
         panelIzquierdo.setLayout(new GridLayout(2, 1, 10, 10));
         panelIzquierdo.setBackground(new Color(52, 73, 94)); // Color de fondo #34495e
         panelIzquierdo.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
-        panelIzquierdo.setBounds(314, 255, 150, 100); // Establecer los límites del panel izquierdo
+        panelIzquierdo.setBounds(400, 252, 150, 100); // Establecer los límites del panel izquierdo
 
-        // Botón de Cerrar Sesión
-        btnCerrarSesion = new JButton("Cerrar Sesión");
-        btnCerrarSesion.addActionListener(e -> cardLayout.show(panelPrincipal, "IniciarSesion"));
-        panelIzquierdo.add(btnCerrarSesion);
-
-        // Botón de Regresar
-        btnRegresar = new JButton("Regresar");
-        btnRegresar.addActionListener(e -> cardLayout.show(panelPrincipal, "inicio"));
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panelPrincipal, "inicio");
+            }
+        });
         panelIzquierdo.add(btnRegresar);
 
-        add(panelIzquierdo);
+        JButton btnCerrarSesion = new JButton("Cerrar Sesión");
+        btnCerrarSesion.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panelPrincipal, "IniciarSesion");
+            }
+        });
+        panelIzquierdo.add(btnCerrarSesion);
 
-        // Imagen o logo en el panel
-        JLabel lblLogo = new JLabel(new ImageIcon("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png")); // Reemplaza con la ruta a tu logo o imagen
-        lblLogo.setBounds(182, 0, 410, 184);
-        add(lblLogo);
+        add(panelIzquierdo);
 
         // Etiqueta de pregunta
         JLabel lblQueDeseasRealizar = new JLabel("¿Qué deseas realizar?");
         lblQueDeseasRealizar.setForeground(Color.WHITE);
         lblQueDeseasRealizar.setFont(new Font("Arial", Font.PLAIN, 12));
-        lblQueDeseasRealizar.setBounds(325, 227, 400, 30);
+        lblQueDeseasRealizar.setBounds(411, 224, 400, 30);
         add(lblQueDeseasRealizar);
+    }
+
+    public Perfil(Usuario usuario, CardLayout cardLayout, JPanel panelPrincipal) {
+        this(usuario.getNombre(), usuario.getCorreo(), usuario.getContraseña(), cardLayout, panelPrincipal);
     }
 }

@@ -92,13 +92,7 @@ public class Libro {
         this.portada = portada;
     }
 
-    public boolean isLeido() {
-        return leido;
-    }
 
-    public void setLeido(boolean leido) {
-        this.leido = leido;
-    }
 
     // Método estático para obtener todos los libros
     public static Libro[] obtenerLibros() {

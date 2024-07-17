@@ -1,13 +1,9 @@
 package Grafico;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 import Logica.Usuario;
 
@@ -15,8 +11,13 @@ public class IniciarSesion extends JPanel {
 
     private JTextField textFieldUsuario;
     private JPasswordField passwordField;
+    private CardLayout cardLayout;
+    private JPanel panelPrincipal;
 
     public IniciarSesion(CardLayout cardLayout, JPanel panelPrincipal) {
+        this.cardLayout = cardLayout;
+        this.panelPrincipal = panelPrincipal;
+
         setBackground(new Color(0x202A40)); // Fondo similar al de Registro
         setLayout(null);
 
@@ -58,6 +59,10 @@ public class IniciarSesion extends JPanel {
 
                 Usuario usuarioValidado = Usuario.validarCredenciales(usuario, contraseña);
                 if (usuarioValidado != null) {
+                    // Pasar los datos del usuario a la interfaz de perfil
+                    Perfil perfilPanel = new Perfil(usuario, usuarioValidado.getCorreo(), contraseña, cardLayout, panelPrincipal);
+                    panelPrincipal.add(perfilPanel, "Perfil");
+                    
                     cardLayout.show(panelPrincipal, "inicio"); // Cambiar al panel "inicio" cuando las credenciales sean correctas
                 } else {
                     JOptionPane.showMessageDialog(IniciarSesion.this, "Usuario o contraseña incorrectos", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
@@ -67,15 +72,6 @@ public class IniciarSesion extends JPanel {
         btnIngresar.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
         btnIngresar.setBounds(376, 407, 125, 30);
         add(btnIngresar);
-
-       /* try {
-            BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
-            JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
-            lblImagen.setBounds(315, 11, 283, 183);
-            add(lblImagen);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
 
         // Botón de Registrarse
         JButton btnRegistrarse = new JButton("Registrarse");
@@ -97,4 +93,5 @@ public class IniciarSesion extends JPanel {
         add(lblanNoTienes);
     }
 }
+
 

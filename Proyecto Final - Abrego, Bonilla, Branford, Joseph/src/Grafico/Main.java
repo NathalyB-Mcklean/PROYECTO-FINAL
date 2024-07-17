@@ -2,12 +2,10 @@ package Grafico;
 
 import javax.swing.*;
 import java.awt.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import Logica.Usuario;
-
 
 public class Main extends JFrame {
 
@@ -35,7 +33,6 @@ public class Main extends JFrame {
         Inicio inicioPanel = new Inicio(cardLayout, panelPrincipal);
         panelPrincipal.add(inicioPanel, "inicio");
 
-
         // Crear un objeto Usuario para ser pasado a la clase Perfil
         Usuario usuario = new Usuario("Usuario", "usuario@correo.com", "contraseña");
 
@@ -44,7 +41,6 @@ public class Main extends JFrame {
 
         Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), cardLayout, panelPrincipal);
         panelPrincipal.add(detallesPanel, "detalles");
-
 
         cardLayout.show(panelPrincipal, "presentacion");
 
@@ -84,4 +80,3 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(() -> new Main());
     }
 }
-
