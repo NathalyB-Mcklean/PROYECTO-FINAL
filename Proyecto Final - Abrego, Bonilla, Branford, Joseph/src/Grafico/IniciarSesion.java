@@ -68,13 +68,8 @@ public class IniciarSesion extends JPanel {
         btnIngresar.setBounds(376, 407, 125, 30);
         add(btnIngresar);
 
-<<<<<<< HEAD
        /* try {
             BufferedImage originalImage = ImageIO.read(new File("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
-=======
-        try {
-            BufferedImage originalImage = ImageIO.read(new File("Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png"));
->>>>>>> branch 'master' of git@github.com:NathalyB-Mcklean/PROYECTO-FINAL.git
             JLabel lblImagen = new JLabel(new ImageIcon(originalImage));
             lblImagen.setBounds(315, 11, 283, 183);
             add(lblImagen);
@@ -102,3 +97,4 @@ public class IniciarSesion extends JPanel {
         add(lblanNoTienes);
     }
 }
+
