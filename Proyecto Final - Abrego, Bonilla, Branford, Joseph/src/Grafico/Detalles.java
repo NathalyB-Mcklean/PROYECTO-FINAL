@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Detalles extends JPanel {
     private JButton btnMarcarLeido;
@@ -14,23 +15,29 @@ public class Detalles extends JPanel {
     private JPanel panelCalificacion;
     private JButton[] btnCalificar;
     private JLabel lblPortada;
+    private JTextArea textAreaComentario;
+    private JButton btnPublicarComentario;
+    private JTextArea textAreaComentariosPublicados;
 
     private boolean leido = false;
-    private int calificacion = 0;
+    private int calificacion;
+    private ArrayList<String> comentarios;
 
     private CardLayout cardLayout;
     private JPanel panelPrincipal;
 
+    private String tituloLibro;
+
     public Detalles(String tituloLibro, String descripcionLibro, ImageIcon portada, CardLayout cardLayout, JPanel panelPrincipal) {
         this.cardLayout = cardLayout;
         this.panelPrincipal = panelPrincipal;
+        this.tituloLibro = tituloLibro;
 
         setBackground(new Color(0x283652)); // Color de fondo #283652
-        setLayout(null); // Absolute layout
+        setLayout(new BorderLayout());
 
         // Panel superior
-        JPanel panelTop = new JPanel(null);
-        panelTop.setBounds(0, 0, 800, 60);
+        JPanel panelTop = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelTop.setBackground(new Color(0x283652));
 
         // Botón Por Leer / Leído
@@ -38,7 +45,6 @@ public class Detalles extends JPanel {
         btnMarcarLeido.setFont(new Font("Arial", Font.PLAIN, 14));
         btnMarcarLeido.setForeground(Color.BLACK);
         btnMarcarLeido.setBackground(new Color(0x445E91));
-        btnMarcarLeido.setBounds(160, 15, 120, 30);
         btnMarcarLeido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,39 +66,37 @@ public class Detalles extends JPanel {
         btnRegresar.setForeground(Color.BLACK);
         btnRegresar.setFont(new Font("Arial", Font.PLAIN, 14));
         btnRegresar.setBackground(new Color(68, 94, 145));
-        btnRegresar.setBounds(20, 15, 120, 30);
         btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cardLayout.show(panelPrincipal, "Inicio");
+                cardLayout.show(panelPrincipal, "inicio");
             }
         });
         panelTop.add(btnRegresar);
 
-        add(panelTop);
+        add(panelTop, BorderLayout.NORTH);
 
         // Panel central
-        JPanel panelCenter = new JPanel(null);
-        panelCenter.setBounds(0, 60, 800, 540);
+        JPanel panelCenter = new JPanel();
         panelCenter.setBackground(new Color(0x283652));
+        panelCenter.setLayout(new BoxLayout(panelCenter, BoxLayout.Y_AXIS));
 
         // Etiqueta para mostrar el libro seleccionado
         lblLibroSeleccionado = new JLabel(tituloLibro);
         lblLibroSeleccionado.setFont(new Font("Arial", Font.BOLD, 18));
         lblLibroSeleccionado.setForeground(Color.WHITE);
-        lblLibroSeleccionado.setBounds(20, 10, 760, 30);
+        lblLibroSeleccionado.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelCenter.add(lblLibroSeleccionado);
 
         // Etiqueta para la portada del libro
         lblPortada = new JLabel(portada);
-        lblPortada.setBounds(20, 50, 200, 300);
+        lblPortada.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelCenter.add(lblPortada);
 
         // Panel para la sección de reseña
         panelResena = new JPanel(new BorderLayout());
         panelResena.setBackground(new Color(0x283652)); // Color de fondo #283652
-        panelResena.setBorder(new EmptyBorder(10, 0, 10, 0));
-        panelResena.setBounds(240, 50, 520, 300);
+        panelResena.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         // Etiqueta para la sección de reseña
         JLabel lblResena = new JLabel("Reseña:");
@@ -104,16 +108,17 @@ public class Detalles extends JPanel {
         textAreaResena = new JTextArea(descripcionLibro);
         textAreaResena.setLineWrap(true);
         textAreaResena.setWrapStyleWord(true);
+        textAreaResena.setEditable(false);
         JScrollPane scrollPaneResena = new JScrollPane(textAreaResena);
         panelResena.add(scrollPaneResena, BorderLayout.CENTER);
 
         panelCenter.add(panelResena);
 
         // Panel para la sección de calificación
-        panelCalificacion = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panelCalificacion = new JPanel();
         panelCalificacion.setBackground(new Color(0x283652)); // Color de fondo #283652
-        panelCalificacion.setBorder(new EmptyBorder(10, 0, 10, 0));
-        panelCalificacion.setBounds(20, 370, 740, 80);
+        panelCalificacion.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelCalificacion.setLayout(new FlowLayout());
 
         // Etiqueta "Calificación"
         JLabel lblCalificacion = new JLabel("Calificación:");
@@ -135,6 +140,7 @@ public class Detalles extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     // Establecer calificación y actualizar los botones
                     calificacion = index + 1;
+                    BookData.getInstance().setCalificacion(tituloLibro, calificacion);
                     updateRatingButtons();
                 }
             });
@@ -143,7 +149,59 @@ public class Detalles extends JPanel {
 
         panelCenter.add(panelCalificacion);
 
-        add(panelCenter);
+        // Panel para la sección de comentarios
+        JPanel panelComentarios = new JPanel();
+        panelComentarios.setBackground(new Color(0x283652)); // Color de fondo #283652
+        panelComentarios.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelComentarios.setLayout(new BorderLayout());
+
+        // Área de texto para nuevos comentarios
+        textAreaComentario = new JTextArea(3, 20);
+        textAreaComentario.setLineWrap(true);
+        textAreaComentario.setWrapStyleWord(true);
+        textAreaComentario.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        JScrollPane scrollPaneComentario = new JScrollPane(textAreaComentario);
+        panelComentarios.add(scrollPaneComentario, BorderLayout.NORTH);
+
+        // Botón para publicar comentarios
+        btnPublicarComentario = new JButton("Publicar Comentario");
+        btnPublicarComentario.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnPublicarComentario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String comentario = textAreaComentario.getText().trim();
+                if (!comentario.isEmpty()) {
+                    BookData.getInstance().addComentario(tituloLibro, comentario);
+                    textAreaComentario.setText("");
+                    actualizarComentarios();
+                }
+            }
+        });
+        panelComentarios.add(btnPublicarComentario, BorderLayout.CENTER);
+
+        // Área de texto para comentarios publicados
+        textAreaComentariosPublicados = new JTextArea(10, 20);
+        textAreaComentariosPublicados.setLineWrap(true);
+        textAreaComentariosPublicados.setWrapStyleWord(true);
+        textAreaComentariosPublicados.setEditable(false);
+        textAreaComentariosPublicados.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        JScrollPane scrollPaneComentariosPublicados = new JScrollPane(textAreaComentariosPublicados);
+        panelComentarios.add(scrollPaneComentariosPublicados, BorderLayout.SOUTH);
+
+        panelCenter.add(panelComentarios);
+
+        add(panelCenter, BorderLayout.CENTER);
+
+        // Inicializar botones de calificación y comentarios
+        cargarDatos();
+        updateRatingButtons();
+        actualizarComentarios();
+    }
+
+    // Método para cargar datos
+    private void cargarDatos() {
+        comentarios = BookData.getInstance().getComentarios(tituloLibro);
+        calificacion = BookData.getInstance().getCalificacion(tituloLibro);
     }
 
     // Método para actualizar los botones de calificación
@@ -157,25 +215,13 @@ public class Detalles extends JPanel {
         }
     }
 
-    public static void main(String[] args) {
-        // Ejemplo de uso del JPanel Detalles
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame();
-                frame.setSize(800, 600);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.getContentPane().setLayout(new BorderLayout());
-
-                JPanel panelPrincipal = new JPanel(new CardLayout());
-                panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
-
-                Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), (CardLayout) panelPrincipal.getLayout(), panelPrincipal);
-                panelPrincipal.add(detallesPanel, "Detalles");
-
-                frame.getContentPane().add(panelPrincipal, BorderLayout.CENTER);
-                frame.setVisible(true);
-            }
-        });
+    // Método para actualizar los comentarios publicados
+    private void actualizarComentarios() {
+        StringBuilder comentariosTexto = new StringBuilder();
+        for (String comentario : comentarios) {
+            comentariosTexto.append(comentario).append("\n");
+        }
+        textAreaComentariosPublicados.setText(comentariosTexto.toString());
     }
 }
 
