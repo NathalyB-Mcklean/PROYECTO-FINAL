@@ -1,16 +1,12 @@
 package Grafico;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.border.EmptyBorder;
 
-import Logica.Libro;
-
-public class Detalles extends JFrame {
-
-    private JButton btnCerrarSesion;
+public class Detalles extends JPanel {
     private JButton btnMarcarLeido;
     private JLabel lblLibroSeleccionado;
     private JTextArea textAreaResena;
@@ -22,38 +18,25 @@ public class Detalles extends JFrame {
     private boolean leido = false;
     private int calificacion = 0;
 
-    public Detalles(String tituloLibro, String descripcionLibro, ImageIcon portada) {
-        setTitle("Detalles del Libro");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600); // Tamaño del JFrame
-        setLocationRelativeTo(null); // Centrar en pantalla
-        getContentPane().setLayout(new BorderLayout()); // Usar BorderLayout
-        getContentPane().setBackground(new Color(0x283652)); // Color de fondo #283652
+    private CardLayout cardLayout;
+    private JPanel panelPrincipal;
+
+    public Detalles(String tituloLibro, String descripcionLibro, ImageIcon portada, CardLayout cardLayout, JPanel panelPrincipal) {
+        this.cardLayout = cardLayout;
+        this.panelPrincipal = panelPrincipal;
+
+        setBackground(new Color(0x283652)); // Color de fondo #283652
+        setLayout(new BorderLayout());
 
         JPanel panelTop = new JPanel(null);
         panelTop.setPreferredSize(new Dimension(800, 60));
         panelTop.setBackground(new Color(0x283652));
 
-        // Botón Cerrar Sesión
-        btnCerrarSesion = new JButton("Regresar");
-        btnCerrarSesion.setFont(new Font("Arial", Font.PLAIN, 14));
-        btnCerrarSesion.setForeground(Color.BLACK);
-        btnCerrarSesion.setBackground(new Color(0x445E91)); 
-        btnCerrarSesion.setBounds(20, 15, 120, 30);
-        btnCerrarSesion.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para cerrar sesión
-                dispose(); // Cerrar el JFrame actual
-            }
-        });
-        panelTop.add(btnCerrarSesion);
-
         // Botón Por Leer / Leído
         btnMarcarLeido = new JButton("Por Leer");
         btnMarcarLeido.setFont(new Font("Arial", Font.PLAIN, 14));
         btnMarcarLeido.setForeground(Color.BLACK);
-        btnMarcarLeido.setBackground(new Color(0x445E91)); 
+        btnMarcarLeido.setBackground(new Color(0x445E91));
         btnMarcarLeido.setBounds(160, 15, 120, 30);
         btnMarcarLeido.addActionListener(new ActionListener() {
             @Override
@@ -71,7 +54,20 @@ public class Detalles extends JFrame {
         });
         panelTop.add(btnMarcarLeido);
 
-        getContentPane().add(panelTop, BorderLayout.NORTH);
+        JButton btnRegresar = new JButton("Regresar");
+        btnRegresar.setForeground(Color.BLACK);
+        btnRegresar.setFont(new Font("Arial", Font.PLAIN, 14));
+        btnRegresar.setBackground(new Color(68, 94, 145));
+        btnRegresar.setBounds(20, 15, 120, 30);
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(panelPrincipal, "Inicio");
+            }
+        });
+        panelTop.add(btnRegresar);
+
+        add(panelTop, BorderLayout.NORTH);
 
         JPanel panelCenter = new JPanel(null);
         panelCenter.setBackground(new Color(0x283652));
@@ -143,10 +139,7 @@ public class Detalles extends JFrame {
 
         panelCenter.add(panelCalificacion);
 
-        getContentPane().add(panelCenter, BorderLayout.CENTER);
-
-        // Establecer visibilidad del JFrame
-        setVisible(true);
+        add(panelCenter, BorderLayout.CENTER);
     }
 
     // Método para actualizar los botones de calificación
@@ -161,18 +154,23 @@ public class Detalles extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Ejemplo de uso del JFrame Detalles
+        // Ejemplo de uso del JPanel Detalles
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ImageIcon portada = new ImageIcon("ruta/a/la/imagen/portada.png");
-                new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", portada);
+                JFrame frame = new JFrame();
+                frame.setSize(800, 600);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.getContentPane().setLayout(new BorderLayout());
+
+                JPanel panelPrincipal = new JPanel(new CardLayout());
+                panelPrincipal.add(new Inicio((CardLayout) panelPrincipal.getLayout(), panelPrincipal), "Inicio");
+
+                Detalles detallesPanel = new Detalles("Cien años de soledad", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía.", new ImageIcon("ruta/a/la/imagen/portada.png"), (CardLayout) panelPrincipal.getLayout(), panelPrincipal);
+
+                frame.getContentPane().add(detallesPanel, BorderLayout.CENTER);
+                frame.setVisible(true);
             }
         });
     }
-
-	public void setLibroDetalles(Libro libro) {
-		// TODO Auto-generated method stub
-		
-	}
 }
-//holaaaaaaaaa dsvdvdsvewfewvewvew
+
