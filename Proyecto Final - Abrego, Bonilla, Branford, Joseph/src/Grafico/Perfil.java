@@ -69,7 +69,7 @@ public class Perfil extends JPanel {
         // Botón de Regresar en la esquina superior derecha
         btnRegresar = new JButton("Regresar");
         btnRegresar.setBounds(880, 10, 100, 30); // Colocar el botón en la esquina superior derecha
-        btnRegresar.addActionListener(e -> cardLayout.show(panelPrincipal, "Inicio"));
+        btnRegresar.addActionListener(e -> cardLayout.show(panelPrincipal, "inicio"));
         add(btnRegresar);
 
         // Mostrar el panel de inicio por defecto

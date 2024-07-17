@@ -83,6 +83,7 @@ public class Inicio extends JPanel {
 
         // Combo Box Categorías y botón Filtrar
         comboBoxCategorias = new JComboBox<>(new String[]{"Todos", "Ficción", "No ficción", "Literatura infantil", "Ciencia ficción", "Romance"});
+        comboBoxCategorias.setModel(new DefaultComboBoxModel(new String[] {"Todos", "Ficción", "", "Clásicos", "", "Romance", "", "Novela Gótica", "", "Terror psicológico", "", "Historia"}));
         comboBoxCategorias.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
         comboBoxCategorias.setBounds(20, 70, 150, 30);
         add(comboBoxCategorias);
