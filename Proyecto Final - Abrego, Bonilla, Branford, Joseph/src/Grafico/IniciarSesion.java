@@ -9,10 +9,10 @@ import Logica.Usuario;
 
 public class IniciarSesion extends JPanel {
 
-    private JTextField textFieldUsuario;
-    private JPasswordField passwordField;
-    private CardLayout cardLayout;
-    private JPanel panelPrincipal;
+    public JTextField textFieldUsuario;
+    public JPasswordField passwordField;
+    public CardLayout cardLayout;
+    public JPanel panelPrincipal;
 
     public IniciarSesion(CardLayout cardLayout, JPanel panelPrincipal) {
         this.cardLayout = cardLayout;

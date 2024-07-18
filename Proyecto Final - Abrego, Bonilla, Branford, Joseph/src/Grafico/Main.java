@@ -10,11 +10,11 @@ import Logica.Usuario;
 
 public class Main extends JFrame {
 
-    private JPanel panelPrincipal;
-    private CardLayout cardLayout;
+    public JPanel panelPrincipal;
+    public CardLayout cardLayout;
 
     public Main() {
-        super("Página de Presentación");
+        super("COSMOS");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
 
@@ -53,12 +53,13 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
-    private JPanel crearPaginaPresentacion() {
+    public JPanel crearPaginaPresentacion() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(255, 255, 255));
         panel.setLayout(null);
 
         JTextArea texto = new JTextArea();
+        texto.setBackground(SystemColor.activeCaption);
         texto.setFont(new Font("Yu Gothic", Font.BOLD, 12));
         texto.setEditable(false);
         texto.setOpaque(false);

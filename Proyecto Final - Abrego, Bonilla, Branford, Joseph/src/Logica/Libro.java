@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Libro {
     // Atributos de la clase Libro
-    private static Libro[] libros = {
+    public static Libro[] libros = {
 
         new Libro("Cien años de soledad", "Gabriel García Márquez", "Una obra maestra de Gabriel García Márquez que narra la historia de la familia Buendía a lo largo de varias generaciones en el pueblo ficticio de Macondo. Con un estilo mágico-realista, el autor explora temas como la soledad, la violencia y el poder del mito.", "Ficción", "C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Portada de libros\\1.png"),
         new Libro("El principito", "Antoine de Saint-Exupéry", "Una novela corta y la obra más famosa de Antoine de Saint-Exupéry. A través de la historia de un joven príncipe que viaja de planeta en planeta, se exploran profundas lecciones sobre la vida, el amor, la amistad y la pérdida.", "Ficción", "C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Portada de libros\\2.jpg"),
@@ -38,11 +38,11 @@ public class Libro {
     };
 
 
-    private String titulo;
-    private String autor;
-    private String descripcion;
-    private String categoria;
-    private String portada; // Nuevo atributo para la portada del libro
+    public String titulo;
+    public String autor;
+    public String descripcion;
+    public String categoria;
+    public String portada; // Nuevo atributo para la portada del libro
 
     // Constructor de la clase Libro
     public Libro(String titulo, String autor, String descripcion, String categoria, String portada) {

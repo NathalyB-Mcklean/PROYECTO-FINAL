@@ -9,13 +9,12 @@ import Logica.Usuario;
 
 public class Registro extends JPanel {
 
-    // Cambiar a public
-    private JTextField textFieldNombre;
-    private JTextField textFieldCorreo;
-    private JPasswordField passwordField;
+    public JTextField textFieldNombre;
+    public JTextField textFieldCorreo;
+    public JPasswordField passwordField;
 
-    private CardLayout cardLayout;
-    private JPanel panelPrincipal;
+    public CardLayout cardLayout;
+    public JPanel panelPrincipal;
 
     public Registro(CardLayout cardLayout, JPanel panelPrincipal) {
         super();
@@ -24,7 +23,7 @@ public class Registro extends JPanel {
         inicializarComponentes();
     }
 
-    private void inicializarComponentes() {
+    public void inicializarComponentes() {
         setLayout(null); // Establecer AbsoluteLayout
         setBackground(new Color(0x202A40)); // Fondo más claro
 
@@ -32,8 +31,6 @@ public class Registro extends JPanel {
         JLabel imagenIzquierda = new JLabel(new ImageIcon(new ImageIcon("C:\\Users\\natha\\git\\PROYECTO-FINAL\\Proyecto Final - Abrego, Bonilla, Branford, Joseph\\Imágenes\\Bookstore (350 x 350 px) (2).png").getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH)));
         imagenIzquierda.setBounds(285, -22, 307, 286); // Ajustar tamaño y posición
         add(imagenIzquierda);
-
-       
 
         // Etiquetas y campos de texto
         JLabel lblNombre = new JLabel("Usuario:");
@@ -53,9 +50,30 @@ public class Registro extends JPanel {
         lblCorreo.setBounds(152, 287, 100, 30);
         add(lblCorreo);
 
-        textFieldCorreo = new JTextField();
+        textFieldCorreo = new JTextField("example@gmail.com"); // Añadir placeholder
         textFieldCorreo.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
+        textFieldCorreo.setForeground(Color.GRAY); // Color gris para el placeholder
         textFieldCorreo.setBounds(275, 288, 346, 30);
+
+        // Añadir un focus listener para manejar el placeholder
+        textFieldCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textFieldCorreo.getText().equals("example@gmail.com")) {
+                    textFieldCorreo.setText("");
+                    textFieldCorreo.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textFieldCorreo.getText().isEmpty()) {
+                    textFieldCorreo.setForeground(Color.GRAY);
+                    textFieldCorreo.setText("example@gmail.com");
+                }
+            }
+        });
+
         add(textFieldCorreo);
 
         JLabel lblContraseña = new JLabel("Contraseña:");
@@ -105,13 +123,18 @@ public class Registro extends JPanel {
         add(lblyaTienesUna);
     }
 
-    private void registrarUsuario() {
+    public void registrarUsuario() {
         String nombre = textFieldNombre.getText().trim();
         String correo = textFieldCorreo.getText().trim();
         String contraseña = new String(passwordField.getPassword());
 
         if (nombre.isEmpty() || correo.isEmpty() || contraseña.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!correo.endsWith("@gmail.com")) {
+            JOptionPane.showMessageDialog(this, "El correo debe ser de dominio @gmail.com", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

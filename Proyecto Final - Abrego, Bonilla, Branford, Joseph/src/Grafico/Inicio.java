@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
 
 public class Inicio extends JPanel {
 
-    private JButton btnPerfil;
-    private JTextField textFieldBusqueda;
-    private JButton btnBuscar;
-    private JComboBox<String> comboBoxCategorias;
-    private JButton btnFiltrar;
-    private JPanel panelRecomendaciones;
-    private CardLayout cardLayout;
-    private JPanel panelPrincipal;
+    public JButton btnPerfil;
+    public JTextField textFieldBusqueda;
+    public JButton btnBuscar;
+    public JComboBox<String> comboBoxCategorias;
+    public JButton btnFiltrar;
+    public JPanel panelRecomendaciones;
+    public CardLayout cardLayout;
+    public JPanel panelPrincipal;
 
     public Inicio(CardLayout cardLayout, JPanel panelPrincipal) {
         this.cardLayout = cardLayout;
@@ -32,7 +32,7 @@ public class Inicio extends JPanel {
         cargarRecomendaciones(Recomendaciones.obtenerLibros());
     }
 
-    private void inicializarComponentes() {
+    public void inicializarComponentes() {
         // Botón Perfil
         btnPerfil = new JButton("Perfil");
         btnPerfil.setFont(new Font("Yu Gothic", Font.PLAIN, 14));
@@ -95,44 +95,52 @@ public class Inicio extends JPanel {
     }
 
     // Método para cargar recomendaciones de libros
-    private void cargarRecomendaciones(Libro[] libros) {
+    public void cargarRecomendaciones(Libro[] libros) {
         panelRecomendaciones.removeAll();
-        for (Libro libro : libros) {
-            JPanel panelLibro = new JPanel(new BorderLayout());
-            panelLibro.setBorder(new EmptyBorder(10, 10, 10, 10));
-            JLabel lblTitulo = new JLabel(libro.getTitulo());
-            panelLibro.add(lblTitulo, BorderLayout.NORTH);
-            JTextArea areaTexto = new JTextArea(libro.getDescripcion());
-            areaTexto.setWrapStyleWord(true);
-            areaTexto.setLineWrap(true);
-            areaTexto.setEditable(false);
-            JScrollPane scrollPane = new JScrollPane(areaTexto);
-            panelLibro.add(scrollPane, BorderLayout.CENTER);
-            JButton btnDetalles = new JButton("Ver detalles");
+        if (libros.length == 0) {
+            JLabel lblNoResultados = new JLabel("No se encontraron libros.");
+            lblNoResultados.setForeground(Color.BLACK);
+            lblNoResultados.setFont(new Font("Yu Gothic", Font.PLAIN, 18));
+            lblNoResultados.setHorizontalAlignment(SwingConstants.CENTER);
+            panelRecomendaciones.add(lblNoResultados);
+        } else {
+            for (Libro libro : libros) {
+                JPanel panelLibro = new JPanel(new BorderLayout());
+                panelLibro.setBorder(new EmptyBorder(10, 10, 10, 10));
+                JLabel lblTitulo = new JLabel(libro.getTitulo());
+                panelLibro.add(lblTitulo, BorderLayout.NORTH);
+                JTextArea areaTexto = new JTextArea(libro.getDescripcion());
+                areaTexto.setWrapStyleWord(true);
+                areaTexto.setLineWrap(true);
+                areaTexto.setEditable(false);
+                JScrollPane scrollPane = new JScrollPane(areaTexto);
+                panelLibro.add(scrollPane, BorderLayout.CENTER);
+                JButton btnDetalles = new JButton("Ver detalles");
 
-            // Acción para ver detalles del libro
-            btnDetalles.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Detalles detallesPanel = new Detalles(libro, cardLayout, panelPrincipal);
-                    panelPrincipal.add(detallesPanel, "Detalles");
+                // Acción para ver detalles del libro
+                btnDetalles.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Detalles detallesPanel = new Detalles(libro, cardLayout, panelPrincipal);
+                        panelPrincipal.add(detallesPanel, "Detalles");
 
-                    cardLayout.show(panelPrincipal, "Detalles");
-                }
-            });
-            panelLibro.add(btnDetalles, BorderLayout.SOUTH);
-            panelRecomendaciones.add(panelLibro);
+                        cardLayout.show(panelPrincipal, "Detalles");
+                    }
+                });
+                panelLibro.add(btnDetalles, BorderLayout.SOUTH);
+                panelRecomendaciones.add(panelLibro);
+            }
         }
         panelRecomendaciones.revalidate();
         panelRecomendaciones.repaint();
     }
 
-    private void filtrarLibros(String categoriaSeleccionada) {
+    public void filtrarLibros(String categoriaSeleccionada) {
         Libro[] librosFiltrados = Recomendaciones.filtrarPorCategoria(Recomendaciones.obtenerLibros(), categoriaSeleccionada);
         cargarRecomendaciones(librosFiltrados);
     }
 
-    private void buscarLibros(String textoBusqueda) {
+    public void buscarLibros(String textoBusqueda) {
         Libro[] librosEncontrados = Recomendaciones.buscarPorTexto(Recomendaciones.obtenerLibros(), textoBusqueda);
         cargarRecomendaciones(librosEncontrados);
     }

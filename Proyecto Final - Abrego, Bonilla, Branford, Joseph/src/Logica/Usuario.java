@@ -1,13 +1,13 @@
 package Logica;
 
 public class Usuario {
-    private String nombre;
-    private String correo;
-    private String contraseña;
+    public String nombre;
+    public String correo;
+    public String contraseña;
 
     // Arreglo estático para almacenar todos los usuarios
-    private static Usuario[] usuarios = new Usuario[10];
-    private static int contadorUsuarios = 0;
+    public static Usuario[] usuarios = new Usuario[10];
+    public static int contadorUsuarios = 0;
 
     public Usuario(String nombre, String correo, String contraseña) {
         this.nombre = nombre;

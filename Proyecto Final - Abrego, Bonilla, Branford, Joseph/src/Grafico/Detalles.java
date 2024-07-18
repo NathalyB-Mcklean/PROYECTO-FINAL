@@ -11,32 +11,31 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Detalles extends JPanel {
-    private JButton btnMarcarLeido;
-    private JLabel lblLibroSeleccionado;
-    private JTextArea textAreaResena;
-    private JScrollPane scrollPaneResena;
-    private JPanel panelCalificacion;
-    private JButton[] btnCalificar;
-    private JLabel lblPortada;
-    private JTextArea textAreaComentario;
-    private JButton btnPublicarComentario;
-    private JTextArea textAreaComentariosPublicados;
-    private JScrollPane scrollPaneComentariosPublicados;
+    public JButton btnMarcarLeido;
+    public JLabel lblLibroSeleccionado;
+    public JTextArea textAreaResena;
+    public JScrollPane scrollPaneResena;
+    public JPanel panelCalificacion;
+    public JButton[] btnCalificar;
+    public JLabel lblPortada;
+    public JTextArea textAreaComentario;
+    public JButton btnPublicarComentario;
+    public JTextArea textAreaComentariosPublicados;
+    public JScrollPane scrollPaneComentariosPublicados;
 
-    private boolean leido = false;
-    private int calificacion;
-    private ArrayList<String> comentarios;
+    public boolean leido = false;
+    public int calificacion;
+    public ArrayList<String> comentarios;
 
-    private CardLayout cardLayout;
-    private JPanel panelPrincipal;
+    public CardLayout cardLayout;
+    public JPanel panelPrincipal;
 
-    private String tituloLibro;
+    public String tituloLibro;
 
     public Detalles(Libro libro, CardLayout cardLayout, JPanel panelPrincipal) {
         this.cardLayout = cardLayout;
         this.panelPrincipal = panelPrincipal;
         this.tituloLibro = libro.getTitulo();
-        this.comentarios = new ArrayList<>(); // Inicializar la lista de comentarios
 
         setBackground(new Color(0x283652)); // Color de fondo #283652
         setLayout(null); // Usar Absolute Layout
@@ -50,7 +49,6 @@ public class Detalles extends JPanel {
         btnMarcarLeido.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Cambiar el estado de leído
                 leido = !leido;
                 if (leido) {
                     btnMarcarLeido.setText("Leído");
@@ -131,9 +129,8 @@ public class Detalles extends JPanel {
             btnCalificar[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    // Establecer calificación y actualizar los botones
                     calificacion = index + 1;
-                    // BookData.getInstance().setCalificacion(tituloLibro, calificacion); // Actualiza con tu método para guardar la calificación
+                    BookData.getInstance().setCalificacion(tituloLibro, calificacion); // Actualiza con tu método para guardar la calificación
                     updateRatingButtons();
                 }
             });
@@ -166,8 +163,7 @@ public class Detalles extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String comentario = textAreaComentario.getText().trim();
                 if (!comentario.isEmpty()) {
-                    // BookData.getInstance().addComentario(tituloLibro, comentario); // Actualiza con tu método para guardar comentarios
-                    comentarios.add(comentario); // Añadir comentario a la lista
+                    BookData.getInstance().addComentario(tituloLibro, comentario); // Actualiza con tu método para guardar comentarios
                     textAreaComentario.setText("");
                     actualizarComentarios();
                 }
@@ -191,13 +187,13 @@ public class Detalles extends JPanel {
     }
 
     // Método para cargar datos
-    private void cargarDatos() {
-        // comentarios = BookData.getInstance().getComentarios(tituloLibro); // Actualiza con tu método para obtener comentarios
-        // calificacion = BookData.getInstance().getCalificacion(tituloLibro); // Actualiza con tu método para obtener calificación
+    public void cargarDatos() {
+        comentarios = BookData.getInstance().getComentarios(tituloLibro); // Actualiza con tu método para obtener comentarios
+        calificacion = BookData.getInstance().getCalificacion(tituloLibro); // Actualiza con tu método para obtener calificación
     }
 
     // Método para actualizar los botones de calificación
-    private void updateRatingButtons() {
+    public void updateRatingButtons() {
         for (int i = 0; i < btnCalificar.length; i++) {
             if (i < calificacion) {
                 btnCalificar[i].setBackground(new Color(0xFFFF00)); // Color amarillo para estrellas seleccionadas
@@ -208,7 +204,8 @@ public class Detalles extends JPanel {
     }
 
     // Método para actualizar los comentarios publicados
-    private void actualizarComentarios() {
+    public void actualizarComentarios() {
+        ArrayList<String> comentarios = BookData.getInstance().getComentarios(tituloLibro);
         StringBuilder comentariosTexto = new StringBuilder();
         for (String comentario : comentarios) {
             comentariosTexto.append(comentario).append("\n");
